@@ -1,5 +1,5 @@
 <template>
-  <div class="h-full flex items-center justify-center py-6">
+  <div v-if="user" class="h-full flex items-center justify-center py-6">
     <div class="flex w-full max-w-s p-4 bg-white">
       <ul class="flex flex-col w-full">
         <li class="my-px">
@@ -259,6 +259,7 @@
         </li>
         <li class="my-px">
           <a
+            @click.prevent="logout"
             href="#"
             class="flex flex-row items-center h-12 px-4 rounded-lg text-gray-600 hover:bg-gray-100"
           >
@@ -284,3 +285,31 @@
     </div>
   </div>
 </template>
+
+<script>
+import { mapGetters } from 'vuex'
+
+export default {
+  components: {
+
+  },
+
+  data: () => ({
+    appName: window.config.appName
+  }),
+
+  computed: mapGetters({
+    user: 'auth/user'
+  }),
+
+  methods: {
+    async logout () {
+      // Log out the user.
+      await this.$store.dispatch('auth/logout')
+
+      // Redirect to login.
+      this.$router.push({ name: 'login' })
+    }
+  }
+}
+</script>
