@@ -1,8 +1,8 @@
 <template>
-  <div class="main-layout">
+  <div class="flex items-center">
     <navbar />
 
-    <div class="container mt-4">
+    <div class="container mx-auto w-5/6">
       <child />
     </div>
   </div>
