@@ -24,7 +24,7 @@
                 ></path>
               </svg>
             </span>
-            <span class="ml-3">Dashboard</span>
+            <span class="ml-3">Overview</span>
             <span
               class="flex items-center justify-center text-sm text-gray-500 font-semibold bg-gray-200 h-6 px-2 rounded-full ml-auto"
               >3</span
@@ -34,7 +34,7 @@
         <li class="my-px">
           <span
             class="flex font-medium text-sm text-gray-400 px-4 my-4 uppercase"
-            >Projects</span
+            >Finances</span
           >
         </li>
         <li class="my-px">
@@ -46,20 +46,21 @@
               class="flex items-center justify-center text-lg text-gray-400"
             >
               <svg
+                class="w-6 h-6"
                 fill="none"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                viewBox="0 0 24 24"
                 stroke="currentColor"
-                class="h-6 w-6"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"
                 ></path>
               </svg>
             </span>
-            <span class="ml-3">Manager</span>
+            <span class="ml-3">Budgets</span>
           </a>
         </li>
         <li class="my-px">
@@ -84,7 +85,7 @@
                 ></path>
               </svg>
             </span>
-            <span class="ml-3">Tasks</span>
+            <span class="ml-3">Transactions</span>
           </a>
         </li>
         <li class="my-px">
@@ -96,24 +97,54 @@
               class="flex items-center justify-center text-lg text-gray-400"
             >
               <svg
+                class="w-6 h-6"
                 fill="none"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                viewBox="0 0 24 24"
                 stroke="currentColor"
-                class="h-6 w-6"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
                 ></path>
               </svg>
             </span>
-            <span class="ml-3">Clients</span>
+            <span class="ml-3">Recurring</span>
+          </a>
+        </li>
+
+        <li class="my-px">
+          <span
+            class="flex font-medium text-sm text-gray-400 px-4 my-4 uppercase"
+            >Setup</span
+          >
+        </li>
+        <li class="my-px">
+          <a
+            href="#"
+            class="flex flex-row items-center h-12 px-4 rounded-lg text-gray-600 hover:bg-gray-100"
+          >
             <span
-              class="flex items-center justify-center text-sm text-gray-500 font-semibold bg-gray-200 h-6 px-2 rounded-full ml-auto"
-              >1k</span
+              class="flex items-center justify-center text-lg text-gray-400"
             >
+              <svg
+                class="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 6h16M4 10h16M4 14h16M4 18h16"
+                ></path>
+              </svg>
+            </span>
+            <span class="ml-3">Accounts</span>
           </a>
         </li>
         <li class="my-px">
@@ -122,25 +153,53 @@
             class="flex flex-row items-center h-12 px-4 rounded-lg text-gray-600 hover:bg-gray-100"
           >
             <span
-              class="flex items-center justify-center text-lg text-green-400"
+              class="flex items-center justify-center text-lg text-gray-400"
             >
               <svg
+                class="w-6 h-6"
                 fill="none"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                viewBox="0 0 24 24"
                 stroke="currentColor"
-                class="h-6 w-6"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
                 ></path>
               </svg>
             </span>
-            <span class="ml-3">Add new</span>
+            <span class="ml-3">Categories</span>
           </a>
         </li>
+        <li class="my-px">
+          <a
+            href="#"
+            class="flex flex-row items-center h-12 px-4 rounded-lg text-gray-600 hover:bg-gray-100"
+          >
+            <span
+              class="flex items-center justify-center text-lg text-gray-400"
+            >
+              <svg
+                class="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"
+                ></path>
+              </svg>
+            </span>
+            <span class="ml-3">Tags</span>
+          </a>
+        </li>
+
         <li class="my-px">
           <span
             class="flex font-medium text-sm text-gray-400 px-4 my-4 uppercase"
@@ -170,35 +229,6 @@
               </svg>
             </span>
             <span class="ml-3">Profile</span>
-          </a>
-        </li>
-        <li class="my-px">
-          <a
-            href="#"
-            class="flex flex-row items-center h-12 px-4 rounded-lg text-gray-600 hover:bg-gray-100"
-          >
-            <span
-              class="flex items-center justify-center text-lg text-gray-400"
-            >
-              <svg
-                fill="none"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                class="h-6 w-6"
-              >
-                <path
-                  d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
-                ></path>
-              </svg>
-            </span>
-            <span class="ml-3">Notifications</span>
-            <span
-              class="flex items-center justify-center text-sm text-gray-500 font-semibold bg-gray-200 h-6 px-2 rounded-full ml-auto"
-              >10</span
-            >
           </a>
         </li>
         <li class="my-px">
