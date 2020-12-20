@@ -118,7 +118,6 @@
 import Form from "vform";
 
 export default {
-  components: {},
 
   middleware: "guest",
 
