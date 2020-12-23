@@ -15,7 +15,7 @@
             <div class="flex flex-grow justify-end items-center mr-2">
               <div class="hover:bg-gray-200 rounded-lg cursor-pointer py-2 px-4">
                 <button
-                  @click="addAcountModal = true"
+                v-on:click="addAcountModal = true"
                   class="flex mr-2 focus:outline-none"
                 >
                   <svg
@@ -40,7 +40,7 @@
           </div>
 
           <div
-            class="flex items-center py-2 px-2 text-grey-darker items-center border-b -mx-4"
+            class="flex items-center py-2 px-2 text-grey-darker border-b -mx-4"
           >
             <div class="w-2/5 xl:w-1/4 px-4 flex items-center">
               <div class="rounded-full bg-grey inline-flex mr-3">
@@ -56,7 +56,7 @@
           </div>
 
           <div
-            class="flex items-center py-2 px-2 text-grey-darker items-center border-b -mx-4"
+            class="flex items-center py-2 px-2 text-grey-darker border-b -mx-4"
           >
             <div class="w-2/5 xl:w-1/4 px-4 flex items-center">
               <div class="rounded-full bg-grey inline-flex mr-3">
@@ -121,11 +121,13 @@
           </div>
         </div>
       </div>
+      <div v-if="addAcountModal === true">
+        <AddAccountSideModal v-on:close-dialog="closeDialog" />
     </div>
-    <div v-if="addAcountModal">
-      <AddAccountSideModal v-on:close-dialog="closeDialog" />
     </div>
+
   </card>
+
 </template>
 
 <script>
@@ -150,6 +152,10 @@ export default {
     closeDialog: function() {
       this.addAcountModal = false;
     },
+
+    doStuff: function() {
+      console.log("HEY")
+    }
   },
 };
 </script>
