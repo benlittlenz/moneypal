@@ -4,7 +4,7 @@
       id="listbox-label"
       class="block text-sm leading-5 font-medium text-gray-700"
     >
-      Account Types
+      Account Type
     </label>
     <div  class="relative">
       <span class="inline-block w-full rounded-md shadow-sm">
