@@ -15,6 +15,12 @@ class CreateTransactionsTable extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
+            $table->date('date');
+            $table->foreignId('category_id')->constrained('categories');
+            $table->string('payee')->nullable();
+            $table->decimal('amount');
+            $table->string('notes')->nullable();
+            $table->foreignId('account_id')->constrained('accounts');
             $table->timestamps();
         });
     }
