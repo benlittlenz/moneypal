@@ -155,6 +155,11 @@
 
 <script>
 export default {
+  mounted() {
+    console.log("loaded");
+    this.fetchTransactions();
+  },
+
   methods: {
     selectAllCheckbox(event) {
       let columns = document.querySelectorAll(".rowCheckbox");
@@ -164,7 +169,7 @@ export default {
       if (event.target.checked == true) {
         columns.forEach((column) => {
           column.checked = true;
-          console.log(column)
+          console.log(column);
           //selectedRows.push(parseInt(column.name));
         });
       } else {
@@ -175,6 +180,15 @@ export default {
       }
 
       console.log(selectedRows);
+    },
+
+    async fetchTransactions() {
+      console.log("hdfdfgfg");
+      const transactions = await this.$store.dispatch(
+        "transactions/fetchTransactions"
+      );
+
+      console.log(transactions);
     },
   },
 };
