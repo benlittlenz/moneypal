@@ -15,6 +15,12 @@ class CreateRecurringsTable extends Migration
     {
         Schema::create('recurrings', function (Blueprint $table) {
             $table->id();
+            $table->string('repeating_type');
+            $table->string('day');
+            $table->date('billing_date');
+            $table->date('last_used_on')->nullable();
+            $table->string('description');
+            $table->decimal('amount');
             $table->timestamps();
         });
     }
