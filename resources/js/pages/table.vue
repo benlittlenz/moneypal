@@ -14,10 +14,10 @@
               <input
                 type="checkbox"
                 class="form-checkbox focus:outline-none focus:shadow-outline"
+                @click="selectAllCheckbox($event)"
               />
             </label>
           </th>
-
           <th
             class="bg-gray-100 sticky top-0 border-solid border border-gray-200 px-6 py-3 text-gray-600 font-bold tracking-wider uppercase text-xs"
           >
@@ -154,5 +154,28 @@
 </template>
 
 <script>
-export default {};
+export default {
+  methods: {
+    selectAllCheckbox(event) {
+      let columns = document.querySelectorAll(".rowCheckbox");
+
+      let selectedRows = [];
+
+      if (event.target.checked == true) {
+        columns.forEach((column) => {
+          column.checked = true;
+          console.log(column)
+          //selectedRows.push(parseInt(column.name));
+        });
+      } else {
+        columns.forEach((column) => {
+          column.checked = false;
+        });
+        selectedRows = [];
+      }
+
+      console.log(selectedRows);
+    },
+  },
+};
 </script>
