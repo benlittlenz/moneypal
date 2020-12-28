@@ -22,7 +22,17 @@ class AccountFactory extends Factory
     public function definition()
     {
         return [
-            
+            'account_type' => $this->faker->randomElement(array(
+                "Cash",
+                "Credit",
+                "Investment",
+                "loan",
+                "Property",
+                "Cryptocurrency",
+                "Other"
+            )),
+            'account_name' => $this->faker->name,
+            'bank_name' => $this->faker->word,
         ];
     }
 }

@@ -22,7 +22,11 @@ class RecurringFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'repeating_type' => 'monthly',
+            'day' => $this->faker->numberBetween(1, 28),
+            'billing_date' => $this->faker->dateTimeBetween('-50 days', 'now')->format('Y-m-d'),
+            'description' => implode(' ', array_map('ucfirst', $this->faker->words(3))),
+            'amount' => $this->faker->randomNumber(3)
         ];
     }
 }
