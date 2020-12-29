@@ -2,10 +2,23 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Account;
+use App\Models\Category;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Transaction extends Model
 {
     use HasFactory;
+    protected $guarded = [];
+
+    public function accounts()
+    {
+        return $this->belongsTo(Account::class);
+    }
+
+    public function categories()
+    {
+        return $this->belongsTo(Category::class);
+    }
 }
