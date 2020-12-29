@@ -13,7 +13,6 @@ export const getters = {
 // mutations
 export const mutations = {
     [types.FETCH_TRANSACTIONS](state, { transactions }) {
-        console.log(transactions)
         state.transactions = transactions
     }
 }
@@ -23,6 +22,7 @@ export const actions = {
     async fetchTransactions ({ commit }) {
         try {
           const { data } = await axios.get('/api/transactions')
+          console.log(data)
 
           commit(types.FETCH_TRANSACTIONS, { transactions: data })
         } catch (e) {
