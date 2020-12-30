@@ -136,8 +136,6 @@
 import AddAccountType from "../components/AddAccountType";
 import Form from "vform";
 
-import ClickOutside from 'vue-click-outside'
-
 export default {
   components: {
     AddAccountType,
