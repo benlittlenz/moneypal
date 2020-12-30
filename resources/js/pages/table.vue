@@ -292,7 +292,7 @@
     </div>
 
     <div v-if="addTransaction === true">
-      <AddTransactionSideModal v-on:close-modal="closeModal" />
+      <AddTransactionSideModal v-on:close-modal="closeModal" :categories="categories.data"/>
     </div>
   </div>
 </template>
@@ -338,6 +338,7 @@ export default {
 
   computed: mapGetters({
     transactions: "transactions/transactions",
+    categories: "categories/categories",
   }),
 
   methods: {
@@ -368,10 +369,14 @@ export default {
       const transactions = await this.$store.dispatch(
         "transactions/fetchTransactions"
       );
+      const categories = await this.$store.dispatch(
+        "categories/fetchCategories"
+      );
       this.loading = false;
       //this.transactions = transactions;
 
       console.log(transactions);
+      console.log('categories', categories);
     },
 
     update(record) {

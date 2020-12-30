@@ -74,7 +74,7 @@
                     Category
                   </label>
                   <div class="mt-1 rounded-md shadow-sm">
-                    <v-select :options="options"></v-select>
+                    <v-select label="display_name" :options="categories"></v-select>
                     <has-error :form="form" field="accountName" />
                   </div>
                 </div>
@@ -184,6 +184,8 @@ export default {
     }),
     options: ["foo", "bar", "baz"],
   }),
+
+  props: ['categories'],
 
   methods: {
     closeModal: function () {
