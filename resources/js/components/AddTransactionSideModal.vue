@@ -3,6 +3,16 @@
     v-click-outside="doStuff"
     class="absolute inset-y-0 pl-16 max-w-full right-0 flex"
   >
+    <!--
+        Slide-over panel, show/hide based on slide-over state.
+
+        Entering: "transform transition ease-in-out duration-500 sm:duration-700"
+          From: "translate-x-full"
+          To: "translate-x-0"
+        Leaving: "transform transition ease-in-out duration-500 sm:duration-700"
+          From: "translate-x-0"
+          To: "translate-x-full"
+      -->
     <div class="w-screen max-w-md">
       <div
         class="h-full divide-y divide-gray-200 flex flex-col bg-white shadow-xl"
@@ -15,7 +25,7 @@
               </h2>
               <div class="h-7 flex items-center">
                 <button
-                  v-on:click="closeDialog"
+                  v-on:click="closeModal"
                   aria-label="Close panel"
                   class="text-indigo-200 hover:text-white transition ease-in-out duration-150"
                 >
@@ -50,39 +60,66 @@
                     for="password"
                     class="block text-sm font-medium leading-5 text-gray-700"
                   >
-                    Account Name
+                    Date
                   </label>
-                  <div class="mt-1 rounded-md shadow-sm">
-                    <input
-                      v-model="form.accountName"
-                      id="accountName"
-                      type="text"
-                      required
-                      class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
-                    />
-                    <has-error :form="form" field="accountName" />
+                  <div class="mt-1">
+                    <date-picker type="date"></date-picker>
                   </div>
                 </div>
-
-                <!-- <AddAccountType
-                  v-on:update-type="selectAccountType"
-                  :accountTypes="[
-                    'Cash',
-                    'Credit',
-                    'Investment',
-                    'Loan',
-                    'Property',
-                    'Cryptocurrency',
-                    'Other',
-                  ]"
-                /> -->
-
                 <div class="mt-6">
                   <label
                     for="password"
                     class="block text-sm font-medium leading-5 text-gray-700"
                   >
-                    Bank Name
+                    Category
+                  </label>
+                  <div class="mt-1 rounded-md shadow-sm">
+                    <v-select :options="options"></v-select>
+                    <has-error :form="form" field="accountName" />
+                  </div>
+                </div>
+                <div class="mt-6">
+                  <label
+                    for="password"
+                    class="block text-sm font-medium leading-5 text-gray-700"
+                  >
+                    Payee
+                  </label>
+                  <div class="mt-1 rounded-md shadow-sm">
+                    <input
+                      v-model="form.bankName"
+                      id="bankName"
+                      type="text"
+                      required
+                      class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                    />
+                    <has-error :form="form" field="bankName" />
+                  </div>
+                </div>
+                <div class="mt-6">
+                  <label
+                    for="password"
+                    class="block text-sm font-medium leading-5 text-gray-700"
+                  >
+                    Amount
+                  </label>
+                  <div class="mt-1 rounded-md shadow-sm">
+                    <input
+                      v-model="form.bankName"
+                      id="bankName"
+                      type="decimal"
+                      required
+                      class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                    />
+                    <has-error :form="form" field="bankName" />
+                  </div>
+                </div>
+                <div class="mt-6">
+                  <label
+                    for="password"
+                    class="block text-sm font-medium leading-5 text-gray-700"
+                  >
+                    Notes
                   </label>
                   <div class="mt-1 rounded-md shadow-sm">
                     <input
@@ -102,7 +139,7 @@
         <div class="flex-shrink-0 px-4 py-4 space-x-4 flex justify-end">
           <span class="inline-flex rounded-md shadow-sm">
             <button
-              v-on:click="closeDialog"
+              v-on:click="closeModal"
               type="button"
               class="py-2 px-4 border border-gray-300 rounded-md text-sm leading-5 font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800 transition duration-150 ease-in-out"
             >
@@ -123,25 +160,35 @@
   </section>
 </template>
 <script>
-//import AddAccountType from "../components/AddAccountType";
+// import AddAccountType from "../components/AddAccountType";
 import Form from "vform";
+import vSelect from "vue-select";
+import "vue-select/dist/vue-select.css";
+import DatePicker from "vue2-datepicker";
+import "vue2-datepicker/index.css";
 
 export default {
   components: {
     //AddAccountType,
+    vSelect,
+    DatePicker
   },
   data: () => ({
     form: new Form({
-      accountName: "",
-      accountType: "Cash",
-      bankName: "",
+      date: "",
+      category: "Cash",
+      payee: "",
+      amount: "",
+      notes: "",
+      account: "",
     }),
+    options: ["foo", "bar", "baz"],
   }),
 
   methods: {
-    // closeDialog: function () {
-    //   this.$emit("close-dialog");
-    // },
+    closeModal: function () {
+      this.$emit("close-modal");
+    },
 
     // selectAccountType: function (value) {
     //   console.log("trigger: ", value);
@@ -149,13 +196,13 @@ export default {
     //   this.form.accountType = value;
     // },
 
-    // doStuff: function () {
-    //   console.log("HEY");
-    // },
+    doStuff: function () {
+      console.log("HEY");
+    },
   },
 
-  // directives: {
-  //   //ClickOutside
-  // }
+  //   directives: {
+  //     ClickOutside
+  //   }
 };
 </script>
