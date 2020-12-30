@@ -186,14 +186,14 @@
                     <input
                       class="text-gray-700 px-4 py-1 flex items-center focus:outline-none"
                       type="text"
-                      :value="transaction.account.display_name"
+                      :value="transaction.account.account_type"
                     />
                   </td>
                 </template>
                 <template v-else>
                   <td class="border-solid border border-gray-200">
                     <span class="text-gray-700 px-6 py-1 flex items-center">{{
-                      transaction.account.display_name
+                      transaction.account.account_type
                     }}</span>
                   </td>
                 </template>

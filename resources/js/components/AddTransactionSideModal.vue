@@ -87,6 +87,7 @@
                   </label>
                   <div class="mt-1 rounded-md shadow-sm">
                     <input
+                      placeholder="e.g. Netflix"
                       v-model="form.bankName"
                       id="bankName"
                       type="text"
@@ -105,6 +106,7 @@
                   </label>
                   <div class="mt-1 rounded-md shadow-sm">
                     <input
+                      placeholder="$0.00"
                       v-model="form.bankName"
                       id="bankName"
                       type="decimal"
@@ -123,6 +125,7 @@
                   </label>
                   <div class="mt-1 rounded-md shadow-sm">
                     <input
+                      placeholder="Optional Notes"
                       v-model="form.bankName"
                       id="bankName"
                       type="text"
