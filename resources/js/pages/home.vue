@@ -121,9 +121,9 @@
           </div>
         </div>
       </div>
-      <div v-if="addAcountModal === true">
+      <!-- <div v-if="addAcountModal === true">
         <AddAccountSideModal v-on:close-dialog="closeDialog" />
-    </div>
+    </div> -->
     </div>
 
   </card>
@@ -131,7 +131,7 @@
 </template>
 
 <script>
-import AddAccountSideModal from "../components/AddAccountSideModal";
+import AddAccountSideModal from "../components/AddAccountSideModal"
 
 export default {
   components: {
