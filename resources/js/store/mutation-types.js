@@ -8,6 +8,7 @@ export const UPDATE_USER = 'UPDATE_USER'
 
 // Accounts
 export const FETCH_TRANSACTIONS = 'FETCH_TRANSACTIONS'
+export const FETCH_CATEGORIES = 'FETCH_CATEGORIES'
 
 // lang.js
 export const SET_LOCALE = 'SET_LOCALE'
