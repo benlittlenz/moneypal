@@ -292,7 +292,7 @@
     </div>
 
     <div v-if="addTransaction === true">
-      <AddTransactionSideModal v-on:close-modal="closeModal" :categories="categories.data"/>
+      <AddTransactionSideModal v-on:close-modal="closeModal" :categories="categories.data" :accounts="accounts.data"/>
     </div>
   </div>
 </template>
@@ -339,6 +339,7 @@ export default {
   computed: mapGetters({
     transactions: "transactions/transactions",
     categories: "categories/categories",
+    accounts: "accounts/accounts",
   }),
 
   methods: {
@@ -366,17 +367,21 @@ export default {
     },
 
     async fetchTransactions() {
-      const transactions = await this.$store.dispatch(
+      //Fetch transactions
+      await this.$store.dispatch(
         "transactions/fetchTransactions"
       );
-      const categories = await this.$store.dispatch(
+      //Fetch Categories
+      await this.$store.dispatch(
         "categories/fetchCategories"
+      );
+      //Fetch Accounts
+      await this.$store.dispatch(
+        "accounts/fetchAccounts"
       );
       this.loading = false;
       //this.transactions = transactions;
 
-      console.log(transactions);
-      console.log('categories', categories);
     },
 
     update(record) {
