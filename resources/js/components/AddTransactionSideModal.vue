@@ -135,6 +135,19 @@
                     <has-error :form="form" field="bankName" />
                   </div>
                 </div>
+
+                <div class="mt-6">
+                  <label
+                    for="password"
+                    class="block text-sm font-medium leading-5 text-gray-700"
+                  >
+                    Account
+                  </label>
+                  <div class="mt-1 rounded-md shadow-sm">
+                    <v-select label="account_type" :options="accounts"></v-select>
+                    <has-error :form="form" field="bankName" />
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -185,10 +198,9 @@ export default {
       notes: "",
       account: "",
     }),
-    options: ["foo", "bar", "baz"],
   }),
 
-  props: ['categories'],
+  props: ['categories', 'accounts'],
 
   methods: {
     closeModal: function () {
