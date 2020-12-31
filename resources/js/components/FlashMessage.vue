@@ -16,7 +16,7 @@
           ×
         </button>
         <div class="flex items-center">
-          {{ message }}
+          {{ message.text }}
         </div>
       </div>
     </Transition>
