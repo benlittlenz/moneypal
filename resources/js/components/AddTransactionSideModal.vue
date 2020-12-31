@@ -53,139 +53,157 @@
               </p>
             </div>
           </header>
-          <div class="flex-1 flex flex-col justify-between">
-            <div class="px-4 divide-y divide-gray-200 sm:px-6">
-              <div class="space-y-6 pt-6 pb-5">
-                <div class="mt-6">
-                  <label
-                    for="password"
-                    class="block text-sm font-medium leading-5 text-gray-700"
-                  >
-                    Date
-                  </label>
-                  <div class="mt-1">
-                    <date-picker
-                      v-model="form.date"
-                      type="date"
-                      format="DD/MM/YYYY"
-                    ></date-picker>
+          <form @submit.prevent="create">
+            <div class="flex-1 flex flex-col justify-between">
+              <div class="px-4 divide-y divide-gray-200 sm:px-6">
+                <div class="space-y-6 pt-6 pb-5">
+                  <div class="mt-6">
+                    <label
+                      for="password"
+                      class="block text-sm font-medium leading-5 text-gray-700"
+                    >
+                      Date
+                    </label>
+                    <div class="mt-1">
+                      <date-picker
+                        v-model="form.date"
+                        type="date"
+                        format="DD/MM/YYYY"
+                      ></date-picker>
+                    </div>
                   </div>
-                </div>
-                <div class="mt-6">
-                  <label
-                    for="password"
-                    class="block text-sm font-medium leading-5 text-gray-700"
-                  >
-                    Category
-                  </label>
-                  <div class="mt-1 rounded-md shadow-sm">
-                    <v-select
-                      label="display_name"
-                      :options="categories"
-                      v-model="form.category"
-                      :reduce="(category) => category.id"
-                    ></v-select>
-                    <has-error :form="form" field="accountName" />
+                  <div class="mt-6">
+                    <label
+                      for="password"
+                      class="block text-sm font-medium leading-5 text-gray-700"
+                    >
+                      Category
+                    </label>
+                    <div class="mt-1 rounded-md shadow-sm">
+                      <v-select
+                        label="display_name"
+                        :options="categories"
+                        v-model="form.category"
+                        :reduce="(category) => category.id"
+                      >
+                        <template #search="{ attributes, events }">
+                          <input
+                            class="vs__search"
+                            :required="!form.category"
+                            v-bind="attributes"
+                            v-on="events"
+                          />
+                        </template>
+                      </v-select>
+                      <has-error :form="form" field="accountName" />
+                    </div>
                   </div>
-                </div>
-                <div class="mt-6">
-                  <label
-                    for="password"
-                    class="block text-sm font-medium leading-5 text-gray-700"
-                  >
-                    Payee
-                  </label>
-                  <div class="mt-1 rounded-md shadow-sm">
-                    <input
-                      placeholder="e.g. Netflix"
-                      v-model="form.payee"
-                      id="payee"
-                      type="text"
-                      required
-                      class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
-                    />
-                    <has-error :form="form" field="bankName" />
+                  <div class="mt-6">
+                    <label
+                      for="password"
+                      class="block text-sm font-medium leading-5 text-gray-700"
+                    >
+                      Payee
+                    </label>
+                    <div class="mt-1 rounded-md shadow-sm">
+                      <input
+                        placeholder="e.g. Netflix"
+                        v-model="form.payee"
+                        id="payee"
+                        type="text"
+                        required
+                        class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                      />
+                      <has-error :form="form" field="payee" />
+                    </div>
                   </div>
-                </div>
-                <div class="mt-6">
-                  <label
-                    for="password"
-                    class="block text-sm font-medium leading-5 text-gray-700"
-                  >
-                    Amount
-                  </label>
-                  <div class="mt-1 rounded-md shadow-sm">
-                    <input
-                      placeholder="$0.00"
-                      v-model="form.amount"
-                      id="amount"
-                      type="decimal"
-                      required
-                      class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
-                    />
-                    <has-error :form="form" field="bankName" />
+                  <div class="mt-6">
+                    <label
+                      for="password"
+                      class="block text-sm font-medium leading-5 text-gray-700"
+                    >
+                      Amount
+                    </label>
+                    <div class="mt-1 rounded-md shadow-sm">
+                      <input
+                        placeholder="$0.00"
+                        v-model="form.amount"
+                        id="amount"
+                        type="decimal"
+                        required
+                        class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                      />
+                      <has-error :form="form" field="amount" />
+                    </div>
                   </div>
-                </div>
-                <div class="mt-6">
-                  <label
-                    for="password"
-                    class="block text-sm font-medium leading-5 text-gray-700"
-                  >
-                    Notes
-                  </label>
-                  <div class="mt-1 rounded-md shadow-sm">
-                    <input
-                      placeholder="Optional Notes"
-                      v-model="form.notes"
-                      id="notes"
-                      type="text"
-                      required
-                      class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
-                    />
-                    <has-error :form="form" field="bankName" />
+                  <div class="mt-6">
+                    <label
+                      for="password"
+                      class="block text-sm font-medium leading-5 text-gray-700"
+                    >
+                      Notes
+                    </label>
+                    <div class="mt-1 rounded-md shadow-sm">
+                      <input
+                        placeholder="Optional Notes"
+                        v-model="form.notes"
+                        id="notes"
+                        type="text"
+                        class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                      />
+                      <has-error :form="form" field="notes" />
+                    </div>
                   </div>
-                </div>
 
-                <div class="mt-6">
-                  <label
-                    for="password"
-                    class="block text-sm font-medium leading-5 text-gray-700"
-                  >
-                    Account
-                  </label>
-                  <div class="mt-1 rounded-md shadow-sm">
-                    <v-select
-                      label="account_type"
-                      :options="accounts"
-                      v-model="form.account"
-                      :reduce="(account) => account.id"
-                    ></v-select>
-                    <has-error :form="form" field="bankName" />
+                  <div class="mt-6">
+                    <label
+                      for="password"
+                      class="block text-sm font-medium leading-5 text-gray-700"
+                    >
+                      Account
+                    </label>
+                    <div class="mt-1 rounded-md shadow-sm">
+                      <v-select
+                        label="account_type"
+                        :options="accounts"
+                        v-model="form.account"
+                        :reduce="(account) => account.id"
+                      >
+                        <template #search="{ attributes, events }">
+                          <input
+                            class="vs__search"
+                            :required="!form.account"
+                            v-bind="attributes"
+                            v-on="events"
+                          /> </template
+                      ></v-select>
+                      <has-error :form="form" field="bankName" />
+                    </div>
                   </div>
                 </div>
               </div>
+              <div class="flex-shrink-0 px-4 py-4 space-x-4 flex justify-end">
+                <span class="inline-flex rounded-md shadow-sm">
+                  <button
+                    v-on:click="closeModal"
+                    type="button"
+                    class="py-2 px-4 border border-gray-300 rounded-md text-sm leading-5 font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800 transition duration-150 ease-in-out"
+                  >
+                    Cancel
+                  </button>
+                </span>
+                <span class="inline-flex rounded-md shadow-sm">
+   
+                  <v-button
+                    :loading="form.busy"
+                    class="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition duration-150 ease-in-out"
+                  >
+                    Create
+                  </v-button>
+                </span>
+              </div>
             </div>
-          </div>
-        </div>
-        <div class="flex-shrink-0 px-4 py-4 space-x-4 flex justify-end">
-          <span class="inline-flex rounded-md shadow-sm">
-            <button
-              v-on:click="closeModal"
-              type="button"
-              class="py-2 px-4 border border-gray-300 rounded-md text-sm leading-5 font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800 transition duration-150 ease-in-out"
-            >
-              Cancel
-            </button>
-          </span>
-          <span class="inline-flex rounded-md shadow-sm">
-            <button
-              v-on:click="create"
-              type="submit"
-              class="inline-flex justify-center py-2 px-4 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition duration-150 ease-in-out"
-            >
-              Save
-            </button>
-          </span>
+          </form>
         </div>
       </div>
     </div>
@@ -242,11 +260,14 @@ export default {
           },
         });
 
-        console.log("RES: ", response)
+        console.log("RES: ", response);
         this.$emit("close-modal");
-        if(response.data) {
-          console.log('successfully created transaction')
-          Bus.$emit('flash-message', 'Transaction successfully created!');
+        if (response.data) {
+          console.log("successfully created transaction");
+          Bus.$emit("flash-message", {
+            type: "success",
+            text: "Transaction successfully created!",
+          });
         }
       } catch (err) {
         console.log("ERROR: ", err);
