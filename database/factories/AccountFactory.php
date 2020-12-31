@@ -31,7 +31,11 @@ class AccountFactory extends Factory
                 "Cryptocurrency",
                 "Other"
             )),
-            'account_name' => $this->faker->name,
+            'account_name' => $this->faker->randomElement(array(
+                "BNZ",
+                "ANZ",
+                "Westpac",
+            )),
             'bank_name' => $this->faker->word,
         ];
     }
