@@ -18,8 +18,11 @@ class AccountResource extends JsonResource
         return [
             'id' => $this->id,
             'account_type' => $this->account_type,
+            'sub_type' => $this->sub_type,
             'account_name' => $this->account_name,
             'bank_name' => $this->bank_name,
+            'balance' => $this->balance,
+            'status' => $this->status,
             //'transaction' => new TransactionResource($this->transaction)
         ];
     }
