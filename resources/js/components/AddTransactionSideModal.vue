@@ -3,7 +3,7 @@
     v-click-outside="doStuff"
     class="absolute inset-y-0 pl-16 max-w-full right-0 flex"
   >
-  {{$data}}
+    {{ $data }}
     <!--
         Slide-over panel, show/hide based on slide-over state.
 
@@ -64,7 +64,11 @@
                     Date
                   </label>
                   <div class="mt-1">
-                    <date-picker v-model="form.date" type="date" format="DD/MM/YYYY"></date-picker>
+                    <date-picker
+                      v-model="form.date"
+                      type="date"
+                      format="DD/MM/YYYY"
+                    ></date-picker>
                   </div>
                 </div>
                 <div class="mt-6">
@@ -75,7 +79,12 @@
                     Category
                   </label>
                   <div class="mt-1 rounded-md shadow-sm">
-                    <v-select label="display_name" :options="categories" v-model="form.category" :reduce="category => category.id"></v-select>
+                    <v-select
+                      label="display_name"
+                      :options="categories"
+                      v-model="form.category"
+                      :reduce="(category) => category.id"
+                    ></v-select>
                     <has-error :form="form" field="accountName" />
                   </div>
                 </div>
@@ -145,7 +154,12 @@
                     Account
                   </label>
                   <div class="mt-1 rounded-md shadow-sm">
-                    <v-select label="account_type" :options="accounts" v-model="form.account" :reduce="account => account.id"></v-select>
+                    <v-select
+                      label="account_type"
+                      :options="accounts"
+                      v-model="form.account"
+                      :reduce="(account) => account.id"
+                    ></v-select>
                     <has-error :form="form" field="bankName" />
                   </div>
                 </div>
@@ -180,7 +194,7 @@
 <script>
 // import AddAccountType from "../components/AddAccountType";
 
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions, mapGetters } from "vuex";
 import Form from "vform";
 import vSelect from "vue-select";
 import "vue-select/dist/vue-select.css";
@@ -191,7 +205,7 @@ export default {
   components: {
     //AddAccountType,
     vSelect,
-    DatePicker
+    DatePicker,
   },
   data: () => ({
     form: new Form({
@@ -204,28 +218,38 @@ export default {
     }),
   }),
 
-  props: ['categories', 'accounts'],
+  props: ["categories", "accounts"],
 
   methods: {
     ...mapActions({
-        createTransaction: 'transactions/createTransaction',
-      }),
+      createTransaction: "transactions/createTransaction",
+    }),
     closeModal: function () {
       this.$emit("close-modal");
     },
 
-    create() {
-      console.log(this.form)
-      this.createTransaction({
+    async create() {
+      console.log(this.form);
+      try {
+        const response = await this.createTransaction({
           data: {
-            date: new Date(this.form.date).toISOString().substring(0,10),
+            date: new Date(this.form.date).toISOString().substring(0, 10),
             category_id: this.form.category,
             payee: this.form.payee,
             amount: this.form.amount,
             notes: this.form.notes,
             account_id: this.form.account,
-          }
-      })
+          },
+        });
+
+        console.log("RES: ", response)
+
+        if(response.data) {
+          console.log('successfully created transaction')
+        }
+      } catch (err) {
+        console.log("ERROR: ", err);
+      }
     },
 
     doStuff: function () {
