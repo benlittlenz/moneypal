@@ -3,6 +3,7 @@
     v-click-outside="doStuff"
     class="absolute inset-y-0 pl-16 max-w-full right-0 flex"
   >
+  {{$data.form}}
     <!--
         Slide-over panel, show/hide based on slide-over state.
 
@@ -74,7 +75,7 @@
                     Category
                   </label>
                   <div class="mt-1 rounded-md shadow-sm">
-                    <v-select label="display_name" :options="categories"></v-select>
+                    <v-select label="display_name" :options="categories" v-model="form.category" :reduce="category => category.id"></v-select>
                     <has-error :form="form" field="accountName" />
                   </div>
                 </div>
@@ -89,7 +90,7 @@
                     <input
                       placeholder="e.g. Netflix"
                       v-model="form.bankName"
-                      id="bankName"
+                      id="payee"
                       type="text"
                       required
                       class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
@@ -108,7 +109,7 @@
                     <input
                       placeholder="$0.00"
                       v-model="form.bankName"
-                      id="bankName"
+                      id="amount"
                       type="decimal"
                       required
                       class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
@@ -127,7 +128,7 @@
                     <input
                       placeholder="Optional Notes"
                       v-model="form.bankName"
-                      id="bankName"
+                      id="notes"
                       type="text"
                       required
                       class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
@@ -144,7 +145,7 @@
                     Account
                   </label>
                   <div class="mt-1 rounded-md shadow-sm">
-                    <v-select label="account_type" :options="accounts"></v-select>
+                    <v-select label="account_type" :options="accounts" v-model="form.account" :reduce="account => account.id"></v-select>
                     <has-error :form="form" field="bankName" />
                   </div>
                 </div>
@@ -192,11 +193,11 @@ export default {
   data: () => ({
     form: new Form({
       date: "",
-      category: "Cash",
+      category: null,
       payee: "",
       amount: "",
       notes: "",
-      account: "",
+      account: null,
     }),
   }),
 
