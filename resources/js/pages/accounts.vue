@@ -118,7 +118,7 @@
                 v-for="account in accounts.data"
                 :key="account.id"
                 class="max-h-2 hover:bg-gray-50 cursor-pointer"
-                v-on:click="editAccount = true"
+                v-on:click="updateAccount(account)"
               >
                 <td class="border-solid border border-gray-200">
                   <span class="text-gray-700 px-6 py-1 flex items-center">{{
@@ -193,10 +193,13 @@
     </div>
 
     <div v-if="addTransaction === true">
-      <AddAccountSideModal v-on:close-modal="closeModal" />
+      <AddAccountSideModal />
     </div>
     <div v-if="editAccount === true">
-      <EditAccountSideModal v-on:close-modal="closeModal" />
+      <EditAccountSideModal
+        v-on:close-modal="closeModal"
+        :account="editing.account"
+        />
     </div>
   </div>
 </template>
@@ -245,27 +248,8 @@ export default {
   }),
 
   methods: {
-    closeModal: function () {
+    closeModal() {
       this.editAccount = false;
-    },
-    selectAllCheckbox(event) {
-      let columns = document.querySelectorAll(".rowCheckbox");
-
-      let selectedRows = [];
-
-      if (event.target.checked == true) {
-        columns.forEach((column) => {
-          column.checked = true;
-          console.log(column);
-          //selectedRows.push(parseInt(column.name));
-        });
-      } else {
-        columns.forEach((column) => {
-          column.checked = false;
-        });
-        selectedRows = [];
-      }
-      console.log(selectedRows);
     },
 
     async fetchAccounts() {
@@ -274,9 +258,10 @@ export default {
       this.loading = false;
     },
 
-    update(record) {
+    updateAccount(record) {
       console.log(record);
-      this.editing.id = record.id;
+      this.editAccount = true;
+      this.editing.account = record;
       //   this.editing.form.date = new Date(record.date);
       //   this.editing.form.account_id = record.account.id
       //   this.editing.form.category_id = record.category.id
