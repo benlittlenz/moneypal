@@ -46,10 +46,11 @@ class CreateAccountsTable extends Migration
                 "Motorbike",
                 "Boat",
                 "Scooter",
-            ]);
+            ])->nullable();
             $table->string('account_name');
             $table->string('bank_name');
-            $table->string('balance');
+            $table->string('balance')->nullable();
+            $table->string('status')->default('Active');
             $table->timestamps();
         });
     }

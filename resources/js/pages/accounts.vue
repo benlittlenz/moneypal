@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-20">
+  <div class="mx-auto mt-20 w-11/12">
     <flash-message></flash-message>
     <div class="rounded-lg">
       <button
@@ -83,30 +83,33 @@
           <thead>
             <tr class="text-left h-6">
               <th
-                class="max-w-md bg-gray-100 sticky top-0 border-solid border border-gray-200 px-6 py-3 text-gray-600 font-bold tracking-wider uppercase text-xs"
+                class="bg-gray-100 sticky top-0 border-solid border border-gray-200 px-6 py-3 text-gray-600 font-bold tracking-wider uppercase text-xs"
               >
                 Type
               </th>
               <th
-                class="w-2/12 bg-gray-100 sticky top-0 border-solid border border-gray-200 px-6 py-3 text-gray-600 font-bold tracking-wider uppercase text-xs"
+                class="bg-gray-100 sticky top-0 border-solid border border-gray-200 px-6 py-3 text-gray-600 font-bold tracking-wider uppercase text-xs"
               >
                 Bank
               </th>
               <th
-                class="w-2/12 bg-gray-100 sticky top-0 border-solid border border-gray-200 px-6 py-3 text-gray-600 font-bold tracking-wider uppercase text-xs"
+                class="bg-gray-100 sticky top-0 border-solid border border-gray-200 px-6 py-3 text-gray-600 font-bold tracking-wider uppercase text-xs"
               >
                 Account Name
               </th>
               <th
-                class="w-2/12 bg-gray-100 sticky top-0 border-solid border border-gray-200 px-6 py-3 text-gray-600 font-bold tracking-wider uppercase text-xs"
+                class="bg-gray-100 sticky top-0 border-solid border border-gray-200 px-6 py-3 text-gray-600 font-bold tracking-wider uppercase text-xs"
               >
                 Balance
               </th>
               <th
-                class="w-2/12 bg-gray-100 sticky top-0 border-solid border border-gray-200 px-6 py-3 text-gray-600 font-bold tracking-wider uppercase text-xs"
+                class="bg-gray-100 sticky top-0 border-solid border border-gray-200 px-6 py-3 text-gray-600 font-bold tracking-wider uppercase text-xs"
               >
                 Status
               </th>
+              <th
+                class="w-4 bg-gray-100 sticky top-0 border-solid border border-gray-200 px-6 py-3 text-gray-600 font-bold tracking-wider uppercase text-xs"
+              ></th>
             </tr>
           </thead>
           <tbody>
@@ -114,60 +117,74 @@
               <tr
                 v-for="account in accounts.data"
                 :key="account.id"
-                class="max-h-2 hover:bg-gray-50"
+                class="max-h-2 hover:bg-gray-50 cursor-pointer"
+                v-on:click="editAccount = true"
               >
+                <td class="border-solid border border-gray-200">
+                  <span class="text-gray-700 px-6 py-1 flex items-center">{{
+                    account.account_type
+                  }}</span>
+                  <span
+                    class="text-gray-700 px-6 py-1 flex items-center font-bold"
+                    >{{ account.sub_type }}</span
+                  >
+                </td>
+                <td class="border-solid border border-gray-200">
+                  <span class="text-gray-700 px-6 py-1 flex items-center">{{
+                    account.account_name
+                  }}</span>
+                </td>
+                <td class="border-solid border border-gray-200">
+                  <span class="text-gray-700 px-6 py-1 flex items-center">{{
+                    account.bank_name
+                  }}</span>
+                </td>
+                <td class="border-solid border border-gray-200">
+                  <span class="text-gray-700 px-6 py-1 flex items-center"
+                    >${{ account.balance }}</span
+                  >
+                </td>
 
-                <template v-if="editing.id === account.id">
-                  <td class="">
-                    <input
-                      class="w-full py-2 pl-4 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
-                      type="text"
-                      :value="account.account_type"
-                    />
-                  </td>
-                </template>
-                <template v-else>
-                  <td class="border-solid border border-gray-200">
-                    <span class="text-gray-700 px-6 py-1 flex items-center">{{
-                      account.account_type
-                    }}</span>
-                  </td>
-                </template>
+                <td class="border-solid border border-gray-200">
+                  <div class="flex items-center px-2">
+                    <svg
+                      class="w-6 h-6 text-green-400"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"
+                      ></path>
+                    </svg>
+                    <span class="text-gray-700 pl-2 flex items-center">{{
+                    account.status
+                  }}</span>
+                  </div>
 
-                <template v-if="editing.id === account.id">
-                  <td>
-                    <input
-                      class="w-full py-2 pl-4 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
-                      type="text"
-                      :value="account.account_name"
-                    />
-                  </td>
-                </template>
-                <template v-else>
-                  <td class="border-solid border border-gray-200">
-                    <span class="text-gray-700 px-6 py-1 flex items-center">{{
-                      account.account_name
-                    }}</span>
-                  </td>
-                </template>
-
-                <template v-if="editing.id === account.id">
-                  <td>
-                    <input
-                      class="w-full py-2 pl-4 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
-                      type="decimal"
-                      :value="account.bank_name"
-                    />
-                  </td>
-                </template>
-                <template v-else>
-                  <td class="border-solid border border-gray-200">
-                    <span class="text-gray-700 px-6 py-1 flex items-center">{{
-                      account.bank_name
-                    }}</span>
-                  </td>
-                </template>
-
+                </td>
+                <td class="border-solid border border-gray-200">
+                  <span class="flex">
+                    <svg
+                      class="w-6 h-6"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M9 5l7 7-7 7"
+                      ></path>
+                    </svg>
+                  </span>
+                </td>
               </tr>
             </template>
           </tbody>
@@ -176,9 +193,10 @@
     </div>
 
     <div v-if="addTransaction === true">
-      <AddAccountSideModal
-        v-on:close-modal="closeModal"
-      />
+      <AddAccountSideModal v-on:close-modal="closeModal" />
+    </div>
+    <div v-if="editAccount === true">
+      <EditAccountSideModal v-on:close-modal="closeModal" />
     </div>
   </div>
 </template>
@@ -192,11 +210,13 @@ import DatePicker from "vue2-datepicker";
 import "vue2-datepicker/index.css";
 
 import AddAccountSideModal from "../components/AddAccountSideModal";
+import EditAccountSideModal from "../components/EditAccountSideModal";
 
 export default {
   data: () => ({
     loading: true,
     addTransaction: false,
+    editAccount: false,
     editing: {
       id: null,
       account: null,
@@ -212,6 +232,7 @@ export default {
     vSelect,
     DatePicker,
     AddAccountSideModal,
+    EditAccountSideModal,
   },
 
   mounted() {
@@ -225,7 +246,7 @@ export default {
 
   methods: {
     closeModal: function () {
-      this.addTransaction = false;
+      this.editAccount = false;
     },
     selectAllCheckbox(event) {
       let columns = document.querySelectorAll(".rowCheckbox");
@@ -256,9 +277,9 @@ export default {
     update(record) {
       console.log(record);
       this.editing.id = record.id;
-    //   this.editing.form.date = new Date(record.date);
-    //   this.editing.form.account_id = record.account.id
-    //   this.editing.form.category_id = record.category.id
+      //   this.editing.form.date = new Date(record.date);
+      //   this.editing.form.account_id = record.account.id
+      //   this.editing.form.category_id = record.category.id
     },
   },
 };
