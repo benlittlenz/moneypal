@@ -1,10 +1,10 @@
 <template>
-  <div class="w-64 max-w-6xl">
+  <div class="pl-2 w-64 max-w-6xl">
     <label
       id="listbox-label"
       class="block text-sm leading-5 font-medium text-gray-700"
     >
-      Account Type
+      Account Sub Type
     </label>
     <div class="relative">
       <span class="inline-block w-full rounded-md shadow-sm">
@@ -55,7 +55,7 @@
             Highlighted: "text-white bg-indigo-600", Not Highlighted: "text-gray-900"
           -->
           <li
-            v-for="account in accountTypes"
+            v-for="account in accountSubTypes"
             v-bind:key="account.id"
             id="listbox-item-0"
             role="option"
@@ -72,6 +72,12 @@
               class="font-normal block truncate"
               >{{ account }}</span
             >
+
+            <!--
+              Checkmark, only display for selected option.
+
+              Highlighted: "text-white", Not Highlighted: "text-indigo-600"
+            -->
 
             <span
               v-if="selectedValue === account"
@@ -94,24 +100,37 @@
 
 <script>
 export default {
-  props: ['selected'],
+  props: ["selected"],
   data: () => ({
     showTypes: false,
     selectedValue: "",
-    accountTypes: [
+    accountSubTypes: [
+      "Checkings",
+      "Savings",
       "Cash",
-      "Credit",
-      "Investment",
-      "Loan",
-      "Property",
-      "Cryptocurrency",
-      "Other",
+      "Credit Card",
+      "Retirement",
+      "Brokerage",
+      "Mortage",
+      "Student Loan",
+      "Car Loan",
+      "Line of Credit",
+      "Residence",
+      "Investment Property",
+      "Vacation Property",
+      "Commerical",
+      "Land",
+      "Car",
+      "Motorbike",
+      "Boat",
+      "Scooter",
     ],
   }),
 
   created() {
     this.selectedValue = this.selected;
   },
+
   methods: {
     updateValue: function (value) {
       console.log("gdfgdf");

@@ -1,7 +1,6 @@
 <template>
-  <section
-    class="absolute inset-y-0 pl-16 max-w-full right-0 flex"
-  >
+  <section class="absolute inset-y-0 pl-16 max-w-full right-0 flex">
+    <div v-if="data">Loading...</div>
     <div class="w-screen max-w-md">
       <div
         class="h-full divide-y divide-gray-200 flex flex-col bg-white shadow-xl"
@@ -44,6 +43,15 @@
           <div class="flex-1 flex flex-col justify-between">
             <div class="px-4 divide-y divide-gray-200 sm:px-6">
               <div class="space-y-6 pt-6 pb-5">
+                <div class="flex items-center">
+                  <AddAccountType
+                    v-on:update-type="selectAccountType"
+                    :selected="form.account_type"
+                  />
+                  <AccountSubTypes
+                  :selected="form.sub_type"/>
+                </div>
+
                 <div class="mt-6">
                   <label
                     for="password"
@@ -53,28 +61,15 @@
                   </label>
                   <div class="mt-1 rounded-md shadow-sm">
                     <input
-                      v-model="form.accountName"
-                      id="accountName"
+                      :value="data.account_name"
+                      id="account_name"
                       type="text"
                       required
                       class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
                     />
-                    <has-error :form="form" field="accountName" />
+                    <has-error :form="form" field="account_name" />
                   </div>
                 </div>
-
-                <!-- <AddAccountType
-                  v-on:update-type="selectAccountType"
-                  :accountTypes="[
-                    'Cash',
-                    'Credit',
-                    'Investment',
-                    'Loan',
-                    'Property',
-                    'Cryptocurrency',
-                    'Other',
-                  ]"
-                /> -->
 
                 <div class="mt-6">
                   <label
@@ -85,13 +80,31 @@
                   </label>
                   <div class="mt-1 rounded-md shadow-sm">
                     <input
-                      v-model="form.bankName"
-                      id="bankName"
+                      v-model="form.bank_name"
+                      id="bank_name"
                       type="text"
                       required
                       class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
                     />
-                    <has-error :form="form" field="bankName" />
+                    <has-error :form="form" field="bank_name" />
+                  </div>
+                </div>
+                <div class="mt-6">
+                  <label
+                    for="password"
+                    class="block text-sm font-medium leading-5 text-gray-700"
+                  >
+                    Balance
+                  </label>
+                  <div class="mt-1 rounded-md shadow-sm">
+                    <input
+                      v-model="form.balance"
+                      id="balance"
+                      type="decimal"
+                      required
+                      class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                    />
+                    <has-error :form="form" field="balance" />
                   </div>
                 </div>
               </div>
@@ -122,35 +135,53 @@
   </section>
 </template>
 <script>
-//import AddAccountType from "../components/AddAccountType";
+import AddAccountType from "./AddAccountType";
+import AccountSubTypes from "./AccountSubTypes";
 import Form from "vform";
 
 export default {
+  props: ["account"],
   components: {
-    //AddAccountType,
+    AddAccountType,
+    AccountSubTypes,
   },
   data: () => ({
+    data: null,
     form: new Form({
-      accountName: "",
-      accountType: "Cash",
-      bankName: "",
+      account_name: "",
+      account_type: "",
+      bank_name: "",
+      sub_type: "",
+      balance: null,
+      status: "",
     }),
   }),
 
+  created() {
+    this.data = this.account;
+    this.form.account_name = this.account.account_name;
+    this.form.account_type = this.account.account_type;
+    this.form.bank_name = this.account.bank_name;
+    this.form.sub_type = this.account.sub_type;
+    this.form.balance = this.account.balance;
+    this.form.status = this.account.status;
+  },
+
   methods: {
     closeDialog: function () {
+      console.log("clicked");
       this.$emit("close-dialog");
     },
 
-    // selectAccountType: function (value) {
-    //   console.log("trigger: ", value);
-    //   console.log(this.form);
-    //   this.form.accountType = value;
-    // },
+    selectAccountType: function (value) {
+      console.log("trigger: ", value);
+      console.log(this.form);
+      this.form.account_type = value;
+    },
 
-    // doStuff: function () {
-    //   console.log("HEY");
-    // },
+    doStuff: function () {
+      console.log("HEY");
+    },
   },
 
   // directives: {
