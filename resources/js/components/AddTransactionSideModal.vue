@@ -3,7 +3,6 @@
     v-click-outside="doStuff"
     class="absolute inset-y-0 pl-16 max-w-full right-0 flex"
   >
-    {{ $data }}
     <!--
         Slide-over panel, show/hide based on slide-over state.
 
@@ -48,8 +47,7 @@
             </div>
             <div>
               <p class="text-sm leading-5 text-indigo-300">
-                Get started by filling in the information below to create your
-                new account.
+                Get started by filling in the information below to create a new transaction entry.
               </p>
             </div>
           </header>
@@ -193,7 +191,7 @@
                   </button>
                 </span>
                 <span class="inline-flex rounded-md shadow-sm">
-   
+
                   <v-button
                     :loading="form.busy"
                     class="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition duration-150 ease-in-out"
@@ -251,7 +249,9 @@ export default {
       try {
         const response = await this.createTransaction({
           data: {
-            date: new Date(this.form.date).toISOString().substring(0, 10),
+            date: this.form.date
+              ? new Date(this.form.date).toISOString().substring(0, 10)
+              : new Date().toISOString().substring(0, 10),
             category_id: this.form.category,
             payee: this.form.payee,
             amount: this.form.amount,

@@ -1,7 +1,7 @@
 <template>
   <div class="mt-20">
     <flash-message></flash-message>
-    <div class="rounded-lg ">
+    <div class="rounded-lg">
       <button
         v-on:click="addTransaction = true"
         class="flex mr-2 focus:cursor-pointer focus:outline-none bg-purple-400 text-white py-2 px-4 rounded-lg font-bold"
@@ -155,7 +155,11 @@
                 </td>
                 <template v-if="editing.id === transaction.id">
                   <td>
-                    <date-picker type="date"></date-picker>
+                    <date-picker
+                      v-model="editing.form.date"
+                      type="date"
+                      format="DD/MM/YYYY"
+                    ></date-picker>
                   </td>
                 </template>
                 <template v-else>
@@ -167,25 +171,38 @@
                 </template>
                 <template v-if="editing.id === transaction.id">
                   <td>
-                    <v-select :options="options"></v-select>
+                    <v-select
+                      label="display_name"
+                      :options="categories.data"
+                      v-model="editing.form.category_id"
+                      :reduce="(category) => category.id"
+                    >
+                      <!-- <template #search="{ attributes, events }">
+                          <input
+                            class="vs__search"
+                            :required="!editing.form.category"
+                            v-bind="attributes"
+                            v-on="events"
+                          />
+                        </template> -->
+                    </v-select>
                   </td>
                 </template>
                 <template v-else>
                   <td class="border-solid border border-gray-200">
                     <span class="text-gray-700 px-6 py-1 flex items-center">{{
-                      transaction.account.account_name
+                      transaction.category.display_name
                     }}</span>
                   </td>
                 </template>
 
                 <template v-if="editing.id === transaction.id">
                   <td class="">
-                    <div class="w-5/6 ml-1">
-                      <input
-                        class="py-2 pl-4 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
-                        type="text"
-                      />
-                    </div>
+                    <input
+                      class="w-full py-2 pl-4 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                      type="text"
+                      :value="transaction.payee"
+                    />
                   </td>
                 </template>
                 <template v-else>
@@ -199,7 +216,7 @@
                 <template v-if="editing.id === transaction.id">
                   <td>
                     <input
-                      class="py-2 pl-4 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                      class="w-full py-2 pl-4 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
                       type="decimal"
                       :value="transaction.amount"
                     />
@@ -216,7 +233,7 @@
                 <template v-if="editing.id === transaction.id">
                   <td>
                     <input
-                      class="py-2 pl-4 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                      class="w-full py-2 pl-4 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
                       type="decimal"
                       :value="transaction.notes"
                     />
@@ -232,11 +249,26 @@
 
                 <template v-if="editing.id === transaction.id">
                   <td>
-                    <input
+                    <!-- <input
                       class="text-gray-700 px-4 py-1 flex items-center focus:outline-none"
                       type="text"
                       :value="transaction.account.account_type"
-                    />
+                    /> -->
+                    <v-select
+                      label="account_type"
+                      :options="accounts.data"
+                      v-model="editing.form.account_id"
+                      :reduce="(account) => account.id"
+                    >
+                      <!-- <template #search="{ attributes, events }">
+                          <input
+                            class="vs__search"
+                            :required="!editing.form.category"
+                            v-bind="attributes"
+                            v-on="events"
+                          />
+                        </template> -->
+                    </v-select>
                   </td>
                 </template>
                 <template v-else>
@@ -366,14 +398,14 @@ export default {
     addTransaction: false,
     editing: {
       id: null,
+      account: null,
       form: new Form({
-        account_id: "",
-        category: "",
+        date: null,
+        category_id: null,
         payee: "",
         amount: "",
-        payee: "",
         notes: "",
-        account: "",
+        account_id: null,
       }),
     },
     options: ["foo", "bar", "baz"],
@@ -433,6 +465,9 @@ export default {
     update(record) {
       console.log(record);
       this.editing.id = record.id;
+      this.editing.form.date = new Date(record.date);
+      this.editing.form.account_id = record.account.id
+      this.editing.form.category_id = record.category.id
     },
   },
 };
