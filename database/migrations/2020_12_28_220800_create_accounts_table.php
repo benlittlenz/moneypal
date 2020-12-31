@@ -20,13 +20,36 @@ class CreateAccountsTable extends Migration
                 "Cash",
                 "Credit",
                 "Investment",
-                "loan",
+                "Loan",
                 "Property",
                 "Cryptocurrency",
                 "Other"
             ]);
+            $table->enum('sub_type',
+            [
+                "Checkings",
+                "Savings",
+                "Cash",
+                "Credit Card",
+                "Retirement",
+                "Brokerage",
+                "Mortage",
+                "Student Loan",
+                "Car Loan",
+                "Line of Credit",
+                "Residence",
+                "Investment Property",
+                "Vacation Property",
+                "Commerical",
+                "Land",
+                "Car",
+                "Motorbike",
+                "Boat",
+                "Scooter",
+            ]);
             $table->string('account_name');
             $table->string('bank_name');
+            $table->string('balance');
             $table->timestamps();
         });
     }
