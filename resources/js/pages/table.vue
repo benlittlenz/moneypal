@@ -1,31 +1,79 @@
 <template>
-  <div>
-    <div class="flex flex-grow justify-end items-center mr-2">
-      <div class="hover:bg-gray-200 rounded-lg cursor-pointer py-2 px-4">
-        <button
-          v-on:click="addTransaction = true"
-          class="flex mr-2 focus:outline-none"
+  <div class="mt-20">
+    <div class="rounded-lg ">
+      <button
+        v-on:click="addTransaction = true"
+        class="flex mr-2 focus:cursor-pointer focus:outline-none bg-purple-400 text-white py-2 px-4 rounded-lg font-bold"
+      >
+        <svg
+          class="w-6 h-6 bg-purple-600 text-white rounded-full"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
         >
-          <svg
-            class="w-6 h-6 bg-green-500 text-white rounded-full"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+          ></path>
+        </svg>
+        <span class="ml-2">Add Transaction</span>
+      </button>
+    </div>
+
+    <div class="flex items-center mt-4">
+      <div class="flex flex-1 pr-4">
+        <div class="relative md:w-1/3">
+          <input
+            type="search"
+            class="w-full pl-10 pr-4 py-2 rounded-lg shadow focus:outline-none focus:shadow-outline text-gray-600 font-medium"
+            placeholder="Search..."
+          />
+          <div class="absolute top-0 left-0 inline-flex items-center p-2">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="w-6 h-6 text-gray-400"
+              viewBox="0 0 24 24"
+              stroke-width="2"
+              stroke="currentColor"
+              fill="none"
               stroke-linecap="round"
               stroke-linejoin="round"
-              stroke-width="2"
-              d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-            ></path>
+            >
+              <rect x="0" y="0" width="24" height="24" stroke="none"></rect>
+              <circle cx="10" cy="10" r="7" />
+              <line x1="21" y1="21" x2="15" y2="15" />
+            </svg>
+          </div>
+        </div>
+      </div>
+      <div>
+        <button
+          type="button"
+          @click="open = !open"
+          class="flex items-center text-gray-700 px-3 py-1 border font-medium rounded"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            preserveAspectRatio="xMidYMid meet"
+            class="w-5 h-5 mr-1"
+          >
+            <g class="">
+              <path d="M0 0h24v24H0z" fill="none" class=""></path>
+              <path
+                d="M3 17v2h6v-2H3zM3 5v2h10V5H3zm10 16v-2h8v-2h-8v-2h-2v6h2zM7 9v2H3v2h4v2h2V9H7zm14 4v-2H11v2h10zm-6-4h2V7h4V5h-4V3h-2v6z"
+                class=""
+              ></path>
+            </g>
           </svg>
-          <span class="ml-2">Add Transaction</span>
+          Filter
         </button>
       </div>
     </div>
 
-    <div class="bg-white rounded-sm shadow overflow-y-auto relative mt-10">
+    <div class="bg-white rounded-sm shadow overflow-y-auto relative mt-2">
       {{ transactions.length }}
       <div v-if="transactions.length === 0">Loading...</div>
       <div v-else>
@@ -292,7 +340,11 @@
     </div>
 
     <div v-if="addTransaction === true">
-      <AddTransactionSideModal v-on:close-modal="closeModal" :categories="categories.data" :accounts="accounts.data"/>
+      <AddTransactionSideModal
+        v-on:close-modal="closeModal"
+        :categories="categories.data"
+        :accounts="accounts.data"
+      />
     </div>
   </div>
 </template>
@@ -343,7 +395,7 @@ export default {
   }),
 
   methods: {
-    closeModal: function() {
+    closeModal: function () {
       this.addTransaction = false;
     },
     selectAllCheckbox(event) {
@@ -368,20 +420,13 @@ export default {
 
     async fetchTransactions() {
       //Fetch transactions
-      await this.$store.dispatch(
-        "transactions/fetchTransactions"
-      );
+      await this.$store.dispatch("transactions/fetchTransactions");
       //Fetch Categories
-      await this.$store.dispatch(
-        "categories/fetchCategories"
-      );
+      await this.$store.dispatch("categories/fetchCategories");
       //Fetch Accounts
-      await this.$store.dispatch(
-        "accounts/fetchAccounts"
-      );
+      await this.$store.dispatch("accounts/fetchAccounts");
       this.loading = false;
       //this.transactions = transactions;
-
     },
 
     update(record) {

@@ -13,4 +13,22 @@ class TransactionController extends Controller
         $transactions = Transaction::with(['accounts', 'categories']);
         return TransactionResource::collection($transactions->paginate(25))->response();
     }
+
+    public function store() {
+        $data = request()->validate([
+            'date' => '',
+            'category_id' => '',
+            'payee' => '',
+            'amount' => '',
+            'notes' => '',
+            'account_id' => '',
+        ]);
+
+        //dd($data);
+
+        $transaction = Transaction::create($data);
+        $transaction->save();
+
+        return $transaction;
+    }
 }

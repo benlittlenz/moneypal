@@ -3,7 +3,7 @@
     v-click-outside="doStuff"
     class="absolute inset-y-0 pl-16 max-w-full right-0 flex"
   >
-  {{$data.form}}
+  {{$data}}
     <!--
         Slide-over panel, show/hide based on slide-over state.
 
@@ -22,7 +22,7 @@
           <header class="space-y-1 py-6 px-4 bg-indigo-700 sm:px-6">
             <div class="flex items-center justify-between space-x-3">
               <h2 class="text-lg leading-7 font-medium text-white">
-                Create New Account
+                Add a Transaction
               </h2>
               <div class="h-7 flex items-center">
                 <button
@@ -64,7 +64,7 @@
                     Date
                   </label>
                   <div class="mt-1">
-                    <date-picker type="date"></date-picker>
+                    <date-picker v-model="form.date" type="date" format="DD/MM/YYYY"></date-picker>
                   </div>
                 </div>
                 <div class="mt-6">
@@ -89,7 +89,7 @@
                   <div class="mt-1 rounded-md shadow-sm">
                     <input
                       placeholder="e.g. Netflix"
-                      v-model="form.bankName"
+                      v-model="form.payee"
                       id="payee"
                       type="text"
                       required
@@ -108,7 +108,7 @@
                   <div class="mt-1 rounded-md shadow-sm">
                     <input
                       placeholder="$0.00"
-                      v-model="form.bankName"
+                      v-model="form.amount"
                       id="amount"
                       type="decimal"
                       required
@@ -127,7 +127,7 @@
                   <div class="mt-1 rounded-md shadow-sm">
                     <input
                       placeholder="Optional Notes"
-                      v-model="form.bankName"
+                      v-model="form.notes"
                       id="notes"
                       type="text"
                       required
@@ -165,6 +165,7 @@
           </span>
           <span class="inline-flex rounded-md shadow-sm">
             <button
+              v-on:click="create"
               type="submit"
               class="inline-flex justify-center py-2 px-4 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition duration-150 ease-in-out"
             >
@@ -178,6 +179,8 @@
 </template>
 <script>
 // import AddAccountType from "../components/AddAccountType";
+
+import { mapActions, mapGetters } from 'vuex'
 import Form from "vform";
 import vSelect from "vue-select";
 import "vue-select/dist/vue-select.css";
@@ -192,7 +195,7 @@ export default {
   },
   data: () => ({
     form: new Form({
-      date: "",
+      date: new Date(),
       category: null,
       payee: "",
       amount: "",
@@ -204,15 +207,26 @@ export default {
   props: ['categories', 'accounts'],
 
   methods: {
+    ...mapActions({
+        createTransaction: 'transactions/createTransaction',
+      }),
     closeModal: function () {
       this.$emit("close-modal");
     },
 
-    // selectAccountType: function (value) {
-    //   console.log("trigger: ", value);
-    //   console.log(this.form);
-    //   this.form.accountType = value;
-    // },
+    create() {
+      console.log(this.form)
+      this.createTransaction({
+          data: {
+            date: new Date(this.form.date).toISOString().substring(0,10),
+            category_id: this.form.category,
+            payee: this.form.payee,
+            amount: this.form.amount,
+            notes: this.form.notes,
+            account_id: this.form.account,
+          }
+      })
+    },
 
     doStuff: function () {
       console.log("HEY");

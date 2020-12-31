@@ -14,6 +14,12 @@ export const getters = {
 export const mutations = {
     [types.FETCH_TRANSACTIONS](state, { transactions }) {
         state.transactions = transactions
+    },
+
+    [types.CREATE_TRANSACTION](state, transaction) {
+        console.log(transaction)
+        //state.transactions.push({ transaction })
+        //state.transactions = transactions
     }
 }
 
@@ -30,4 +36,11 @@ export const actions = {
           //commit(types.FETCH_USER_FAILURE)
         }
       },
+
+    async createTransaction ({ commit }, { data }) {
+        console.log("DATA", data)
+        commit(types.CREATE_TRANSACTION, { data })
+
+        return await axios.post('/api/transactions', data)
+    }
 }
