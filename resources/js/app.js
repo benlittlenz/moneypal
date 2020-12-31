@@ -9,7 +9,6 @@ import '~/components'
 
 
 Vue.config.productionTip = false
-
 Vue.directive('click-outside', {
   bind: function (el, binding, vnode) {
     el.clickOutsideEvent = function (event) {
@@ -25,8 +24,8 @@ Vue.directive('click-outside', {
     document.body.removeEventListener('click', el.clickOutsideEvent)
   },
 });
-
-
+window.Bus = new Vue();
+Vue.component('flash-message', require('./components/FlashMessage').default);
 
 /* eslint-disable no-new */
 new Vue({
