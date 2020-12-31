@@ -1,5 +1,6 @@
 <template>
   <div class="mt-20">
+    <flash-message></flash-message>
     <div class="rounded-lg ">
       <button
         v-on:click="addTransaction = true"

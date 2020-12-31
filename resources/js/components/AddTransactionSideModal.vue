@@ -243,9 +243,10 @@ export default {
         });
 
         console.log("RES: ", response)
-
+        this.$emit("close-modal");
         if(response.data) {
           console.log('successfully created transaction')
+          Bus.$emit('flash-message', 'Transaction successfully created!');
         }
       } catch (err) {
         console.log("ERROR: ", err);
