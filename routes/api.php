@@ -49,3 +49,5 @@ Route::group(['middleware' => 'guest:api'], function () {
 Route::get('transactions', [TransactionController::class, 'index']);
 Route::get('categories', [CategoryController::class, 'index']);
 Route::get('accounts', [AccountController::class, 'index']);
+
+Route::post('transactions', [TransactionController::class, 'store']);
