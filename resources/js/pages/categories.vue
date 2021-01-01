@@ -212,7 +212,7 @@
     </div>
 
     <div v-if="createCategory === true">
-      <AddCategorySideModal />
+      <AddCategorySideModal v-on:close-modal="closeModal"/>
     </div>
     <div v-if="editCategory === true">
       <EditCategorySideModal v-on:close-modal="closeModal" :category="category" />
@@ -257,6 +257,7 @@ export default {
   methods: {
     closeModal() {
       this.editCategory = false;
+      this.createCategory = false;
     },
 
     async fetchCategories() {

@@ -40,7 +40,7 @@
               Category Information
             </label>
           </div>
-          <form action="">
+          <form @submit.prevent="create">
             <div class="px-4 divide-y divide-gray-200 sm:px-6 bg-white">
               <div class="space-y-6 pt-6 pb-5">
                 <div class="mt-6">
@@ -52,7 +52,7 @@
                   </label>
                   <div class="mt-1 rounded-md shadow-sm">
                     <input
-                      v-model="display_name"
+                      v-model="form.display_name"
                       id="display_name"
                       type="text"
                       required
@@ -71,7 +71,7 @@
                   </label>
                   <div class="mt-1 rounded-md shadow-sm">
                     <input
-                      v-model="description"
+                      v-model="form.description"
                       id="description"
                       type="text"
                       required
@@ -91,7 +91,10 @@
               <div class="flex items-center mt-2 py-2">
                 <div
                   class="flex justify-between items-center"
-                  @click="toggleIncomeActive = !toggleIncomeActive"
+                  @click="
+                    toggleIncomeActive = !toggleIncomeActive;
+                    form.income = 1;
+                  "
                 >
                   <div
                     class="w-12 h-6 flex items-center bg-gray-300 rounded-full duration-300 ease-in-out"
@@ -103,13 +106,18 @@
                     ></div>
                   </div>
                 </div>
-                <label for="toggle" class="px-4 text-xs text-gray-700">INCOME</label>
+                <label for="toggle" class="px-4 text-xs text-gray-700"
+                  >INCOME</label
+                >
               </div>
 
               <div class="flex items-center mt-2 py-2">
                 <div
                   class="flex justify-between items-center"
-                  @click="toggleBudgetActive = !toggleBudgetActive"
+                  @click="
+                    toggleBudgetActive = !toggleBudgetActive;
+                    form.exclude_budget = 1;
+                  "
                 >
                   <div
                     class="w-12 h-6 flex items-center bg-gray-300 rounded-full duration-300 ease-in-out"
@@ -121,13 +129,18 @@
                     ></div>
                   </div>
                 </div>
-                <label for="toggle" class="px-4 text-xs text-gray-700">EXCLUDE FROM BUDGET</label>
+                <label for="toggle" class="px-4 text-xs text-gray-700"
+                  >EXCLUDE FROM BUDGET</label
+                >
               </div>
 
               <div class="flex items-center mt-2 py-2">
                 <div
                   class="flex justify-between items-center"
-                  @click="toggleTotalActive = !toggleTotalActive"
+                  @click="
+                    toggleTotalActive = !toggleTotalActive;
+                    form.exclude_totals = 1;
+                  "
                 >
                   <div
                     class="w-12 h-6 flex items-center bg-gray-300 rounded-full duration-300 ease-in-out"
@@ -139,9 +152,11 @@
                     ></div>
                   </div>
                 </div>
-                <label for="toggle" class="px-4 text-xs text-gray-700">EXCLUDE FROM TOTALS</label>
+                <label for="toggle" class="px-4 text-xs text-gray-700"
+                  >EXCLUDE FROM TOTALS</label
+                >
               </div>
-  </div>
+            </div>
             <div
               class="flex-shrink-0 px-4 py-4 space-x-4 flex justify-end bg-white"
             >
@@ -170,6 +185,7 @@
   </section>
 </template>
 <script>
+import { mapActions, mapGetters } from "vuex";
 import Form from "vform";
 import vSelect from "vue-select";
 import "vue-select/dist/vue-select.css";
@@ -193,9 +209,40 @@ export default {
   }),
 
   methods: {
+    ...mapActions({
+      createCategory: "categories/createCategory",
+    }),
+
     closeModal: function () {
       console.log("clicked close");
       this.$emit("close-modal");
+    },
+
+    async create() {
+      console.log(this.form);
+      try {
+        const response = await this.createCategory({
+          data: {
+            display_name: this.form.display_name,
+            description: this.form.description,
+            income: this.form.income === null ? 0 : this.form.income,
+            exclude_budget: this.form.exclude_budget === null ? 0 : this.form.exclude_budget,
+            exclude_totals: this.form.exclude_totals === null ? 0 : this.form.exclude_totals,
+          },
+        });
+
+        console.log("RES: ", response);
+        this.$emit("close-modal");
+        if (response.data) {
+          console.log("successfully created category!");
+          Bus.$emit("flash-message", {
+            type: "success",
+            text: "Category successfully created!",
+          });
+        }
+      } catch (err) {
+        console.log("ERROR: ", err);
+      }
     },
 
     doStuff: function () {
