@@ -16,8 +16,10 @@ class CreateCategoriesTable extends Migration
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
             $table->string('display_name');
-            $table->string('description');
-
+            $table->string('description')->nullable();
+            $table->boolean('income')->default(0);
+            $table->boolean('exclude_budget')->default(0);
+            $table->boolean('exclude_totals')->default(0);
             $table->timestamps();
         });
     }
