@@ -15,10 +15,8 @@ export const mutations = {
     [types.FETCH_CATEGORIES](state, { categories }) {
         state.categories = categories
     },
-    [types.CREATE_CATEGORY](state, category) {
-        console.log(category)
-        //state.transactions.push({ transaction })
-        //state.transactions = transactions
+    [types.CREATE_CATEGORY](state, { data }) {
+        state.categories.data.push({ data })
     }
 }
 

@@ -21,9 +21,7 @@ class CategoryController extends Controller
             'exclude_budget' => '',
             'exclude_totals' => ''
         ]);
-
-        //dd($data);
-
+        
         $category = Category::create($data);
         $category->save();
 

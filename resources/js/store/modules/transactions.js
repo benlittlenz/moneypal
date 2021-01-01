@@ -16,10 +16,8 @@ export const mutations = {
         state.transactions = transactions
     },
 
-    [types.CREATE_TRANSACTION](state, transaction) {
-        console.log(transaction)
-        //state.transactions.push({ transaction })
-        //state.transactions = transactions
+    [types.CREATE_TRANSACTION](state, { data }) {
+        state.transactions.data.push({ data })
     }
 }
 
