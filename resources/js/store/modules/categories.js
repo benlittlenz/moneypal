@@ -14,20 +14,31 @@ export const getters = {
 export const mutations = {
     [types.FETCH_CATEGORIES](state, { categories }) {
         state.categories = categories
+    },
+    [types.CREATE_CATEGORY](state, category) {
+        console.log(category)
+        //state.transactions.push({ transaction })
+        //state.transactions = transactions
     }
 }
 
 // actions
 export const actions = {
-    async fetchCategories ({ commit }) {
+    async fetchCategories({ commit }) {
         try {
-          const { data } = await axios.get('/api/categories')
-          console.log(data)
+            const { data } = await axios.get('/api/categories')
+            console.log(data)
 
-          commit(types.FETCH_CATEGORIES, { categories: data })
+            commit(types.FETCH_CATEGORIES, { categories: data })
         } catch (e) {
             console.log("ERROR", e)
-          //commit(types.FETCH_USER_FAILURE)
+            //commit(types.FETCH_USER_FAILURE)
         }
-      },
+    },
+    async createCategory({ commit }, { data }) {
+        console.log("DATA", data)
+        commit(types.CREATE_CATEGORY, { data })
+
+        return await axios.post('/api/categories', data)
+    }
 }

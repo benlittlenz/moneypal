@@ -9,8 +9,12 @@ export const UPDATE_USER = 'UPDATE_USER'
 // Accounts
 export const FETCH_TRANSACTIONS = 'FETCH_TRANSACTIONS'
 export const CREATE_TRANSACTION = 'CREATE_TRANSACTION'
-export const FETCH_CATEGORIES = 'FETCH_CATEGORIES'
 export const FETCH_ACCOUNTS = 'FETCH_ACCOUNTS'
+
+// Categories
+export const FETCH_CATEGORIES = 'FETCH_CATEGORIES'
+export const CREATE_CATEGORY = 'CREATE_CATEGORY'
+
 
 // lang.js
 export const SET_LOCALE = 'SET_LOCALE'
