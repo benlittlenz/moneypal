@@ -23,6 +23,7 @@ class AccountResource extends JsonResource
             'bank_name' => $this->bank_name,
             'balance' => $this->balance,
             'status' => $this->status,
+            'updated_at' => $this->updated_at
             //'transaction' => new TransactionResource($this->transaction)
         ];
     }
