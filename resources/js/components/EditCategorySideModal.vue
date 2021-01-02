@@ -40,7 +40,7 @@
               Category Information
             </label>
           </div>
-          <form action="">
+          <form @submit.prevent="update">
             <div class="px-4 divide-y divide-gray-200 sm:px-6 bg-white">
               <div class="space-y-6 pt-6 pb-5">
                 <div class="mt-6">
@@ -176,6 +176,7 @@
   </section>
 </template>
 <script>
+import { mapActions, mapGetters } from "vuex";
 import Form from "vform";
 import vSelect from "vue-select";
 import "vue-select/dist/vue-select.css";
@@ -211,9 +212,42 @@ export default {
     },
 
   methods: {
+    ...mapActions({
+      updateCategory: "categories/updateCategory",
+    }),
+
     closeModal: function () {
       console.log("clicked close");
       this.$emit("close-modal");
+    },
+
+    async update() {
+      console.log(this.form);
+      console.log("HEY: ", this.category.id)
+      try {
+        const response = await this.updateCategory({
+          data: {
+            display_name: this.form.display_name,
+            description: this.form.description,
+            income: this.form.income === null ? 0 : this.form.income,
+            exclude_budget: this.form.exclude_budget === null ? 0 : this.form.exclude_budget,
+            exclude_totals: this.form.exclude_totals === null ? 0 : this.form.exclude_totals,
+          },
+          id: this.category.id
+        });
+
+        console.log("RES: ", response);
+        this.$emit("close-modal");
+        // if (response.data) {
+        //   console.log("successfully created category!");
+        //   Bus.$emit("flash-message", {
+        //     type: "success",
+        //     text: "Category successfully created!",
+        //   });
+        // }
+      } catch (err) {
+        console.log("ERROR: ", err);
+      }
     },
 
     doStuff: function () {

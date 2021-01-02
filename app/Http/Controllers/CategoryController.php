@@ -21,10 +21,24 @@ class CategoryController extends Controller
             'exclude_budget' => '',
             'exclude_totals' => ''
         ]);
-        
+
         $category = Category::create($data);
         $category->save();
 
         return $category;
+    }
+
+    public function update(Category $category)
+    {
+        ///dd(request());
+        $update = $category->update([
+            'display_name' => request('display_name'),
+            'description' => request('description'),
+            'income' => request('income'),
+            'exclude_budget' => request('exclude_budget'),
+            'exclude_totals' => request('exclude_totals')
+        ]);
+
+        return $update;
     }
 }

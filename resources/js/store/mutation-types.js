@@ -14,6 +14,7 @@ export const FETCH_ACCOUNTS = 'FETCH_ACCOUNTS'
 // Categories
 export const FETCH_CATEGORIES = 'FETCH_CATEGORIES'
 export const CREATE_CATEGORY = 'CREATE_CATEGORY'
+export const UPDATE_CATEGORY = 'UPDATE_CATEGORY'
 
 
 // lang.js

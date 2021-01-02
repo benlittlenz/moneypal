@@ -17,6 +17,12 @@ export const mutations = {
     },
     [types.CREATE_CATEGORY](state, { data }) {
         state.categories.data.push({ data })
+    },
+
+    [types.UPDATE_CATEGORY] (state, { data }) {
+        console.log('state', state)
+        console.log('data', data)
+        //state.categories.data = data
     }
 }
 
@@ -38,5 +44,14 @@ export const actions = {
         commit(types.CREATE_CATEGORY, { data })
 
         return await axios.post('/api/categories', data)
-    }
+    },
+
+    async updateCategory({ commit }, payload) {
+
+        const categoryID = payload.id
+        console.log("ID: ", categoryID)
+        console.log(payload)
+        commit(types.UPDATE_CATEGORY, payload)
+        return await axios.patch(`/api/categories/${categoryID}`, payload.data)
+    },
 }
