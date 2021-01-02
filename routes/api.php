@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TagController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Auth\UserController;
@@ -49,6 +50,7 @@ Route::group(['middleware' => 'guest:api'], function () {
 Route::get('transactions', [TransactionController::class, 'index']);
 Route::get('categories', [CategoryController::class, 'index']);
 Route::get('accounts', [AccountController::class, 'index']);
+Route::get('tags', [TagController::class, 'tags']);
 
 Route::post('transactions', [TransactionController::class, 'store']);
 Route::post('categories', [CategoryController::class, 'store']);
