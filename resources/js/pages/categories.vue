@@ -131,7 +131,8 @@
                   }}</span>
                 </td>
                 <td class="border-solid border border-gray-200">
-                  <div v-if="category.income !== 0">
+                  <div class="flex flex-col justify-center items-center">
+                    <span v-if="category.income !== 0">
                     <svg
                       class="w-6 h-6"
                       fill="none"
@@ -144,65 +145,75 @@
                         stroke-linejoin="round"
                         stroke-width="2"
                         d="M5 13l4 4L19 7"
-                      ></path>
-                    </svg>
-                  </div>
-                </td>
-                <td class="border-solid border border-gray-200">
-                  <div v-if="category.exclude_budget !== 0">
-                    <svg
-                      class="w-6 h-6"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M5 13l4 4L19 7"
-                      ></path>
-                    </svg>
-                  </div>
-                </td>
-
-                <td class="border-solid border border-gray-200">
-                  <div v-if="category.exclude_totals !== 0">
-                    <svg
-                      class="w-6 h-6"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M5 13l4 4L19 7"
-                      ></path>
-                    </svg>
-                  </div>
-                </td>
-
-                <td class="border-solid border border-gray-200">
-                  <span class="flex">
-                    <svg
-                      class="w-6 h-6"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M9 5l7 7-7 7"
                       ></path>
                     </svg>
                   </span>
+                  </div>
+
+                </td>
+                <td class="border-solid border border-gray-200">
+                  <div class="flex flex-col justify-center items-center">
+                    <span v-if="category.exclude_budget !== 0">
+                    <svg
+                      class="w-6 h-6"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M5 13l4 4L19 7"
+                      ></path>
+                    </svg>
+                  </span>
+                  </div>
+
+                </td>
+
+                <td class="border-solid border border-gray-200">
+                  <div class="flex flex-col justify-center items-center">
+                    <span v-if="category.exclude_totals !== 0">
+                    <svg
+                      class="w-6 h-6"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M5 13l4 4L19 7"
+                      ></path>
+                    </svg>
+                  </span>
+                  </div>
+
+                </td>
+
+                <td class="border-solid border border-gray-200">
+                  <div class="flex flex-col justify-center items-center">
+                    <span class="">
+                      <svg
+                        class="w-6 h-6"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M9 5l7 7-7 7"
+                        ></path>
+                      </svg>
+                    </span>
+                  </div>
                 </td>
               </tr>
             </template>
@@ -212,10 +223,13 @@
     </div>
 
     <div v-if="createCategory === true">
-      <AddCategorySideModal v-on:close-modal="closeModal"/>
+      <AddCategorySideModal v-on:close-modal="closeModal" />
     </div>
     <div v-if="editCategory === true">
-      <EditCategorySideModal v-on:close-modal="closeModal" :category="category" />
+      <EditCategorySideModal
+        v-on:close-modal="closeModal"
+        :category="category"
+      />
     </div>
   </div>
 </template>
@@ -236,7 +250,7 @@ export default {
     loading: true,
     createCategory: false,
     editCategory: false,
-    category: null
+    category: null,
   }),
   components: {
     vSelect,

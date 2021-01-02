@@ -52,3 +52,4 @@ Route::get('accounts', [AccountController::class, 'index']);
 
 Route::post('transactions', [TransactionController::class, 'store']);
 Route::post('categories', [CategoryController::class, 'store']);
+Route::patch('categories/{category}', [CategoryController::class, 'update']);

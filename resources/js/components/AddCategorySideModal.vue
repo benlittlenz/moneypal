@@ -208,14 +208,17 @@ export default {
     }),
   }),
 
-  methods: {
+    methods: {
     ...mapActions({
       createCategory: "categories/createCategory",
     }),
-
     closeModal: function () {
       console.log("clicked close");
       this.$emit("close-modal");
+    },
+
+    doStuff: function () {
+      console.log("HEY");
     },
 
     async create() {
@@ -244,11 +247,9 @@ export default {
         console.log("ERROR: ", err);
       }
     },
-
-    doStuff: function () {
-      console.log("HEY");
-    },
   },
+
+
 
   // directives: {
   //   //ClickOutside
