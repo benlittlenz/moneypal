@@ -3,7 +3,7 @@
     <flash-message></flash-message>
     <div class="rounded-lg">
       <button
-        v-on:click="createCategory = true"
+        v-on:click="createTag = true"
         class="flex mr-2 focus:cursor-pointer focus:outline-none bg-purple-400 text-white py-2 px-4 rounded-lg font-bold"
       >
         <svg
@@ -75,8 +75,7 @@
     </div>
 
     <div class="bg-white rounded-sm shadow overflow-y-auto relative mt-2">
-      <div v-if="categories.length === 0">Loading...</div>
-      <div v-else>
+      <div>
         <table
           class="border-collapse table-auto w-full whitespace-no-wrap bg-white table-striped relative"
         >
@@ -85,27 +84,12 @@
               <th
                 class="bg-gray-100 sticky top-0 border-solid border border-gray-200 px-6 py-3 text-gray-600 font-bold tracking-wider uppercase text-xs"
               >
-                Display Name
+                Name
               </th>
               <th
                 class="bg-gray-100 sticky top-0 border-solid border border-gray-200 px-6 py-3 text-gray-600 font-bold tracking-wider uppercase text-xs"
               >
                 Description
-              </th>
-              <th
-                class="w-40 text-center bg-gray-100 sticky top-0 border-solid border border-gray-200 px-6 py-3 text-gray-600 font-bold tracking-wider uppercase text-xs"
-              >
-                Income
-              </th>
-              <th
-                class="w-40 text-center bg-gray-100 sticky top-0 border-solid border border-gray-200 px-6 py-3 text-gray-600 font-bold tracking-wider uppercase text-xs"
-              >
-                Exclude From Budget
-              </th>
-              <th
-                class="w-40 text-center bg-gray-100 sticky top-0 border-solid border border-gray-200 px-6 py-3 text-gray-600 font-bold tracking-wider uppercase text-xs"
-              >
-                Exclude From Totals
               </th>
               <th
                 class="w-4 bg-gray-100 sticky top-0 border-solid border border-gray-200 px-6 py-3 text-gray-600 font-bold tracking-wider uppercase text-xs"
@@ -115,84 +99,20 @@
           <tbody>
             <template>
               <tr
-                v-for="category in categories.data"
-                :key="category.id"
+                v-for="tag in tags.data"
+                :key="tag.id"
                 class="max-h-2 hover:bg-gray-50 cursor-pointer"
-                v-on:click="updateCategory(category)"
+                v-on:click="updateCategory(tag)"
               >
                 <td class="border-solid border border-gray-200">
                   <span class="text-gray-700 px-6 py-1 flex items-center">{{
-                    category.display_name
+                    tag.name
                   }}</span>
                 </td>
                 <td class="border-solid border border-gray-200">
                   <span class="text-gray-700 px-6 py-1 flex items-center">{{
-                    category.description
+                    tag.description
                   }}</span>
-                </td>
-                <td class="border-solid border border-gray-200">
-                  <div class="flex flex-col justify-center items-center">
-                    <span v-if="category.income !== 0">
-                    <svg
-                      class="w-6 h-6"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M5 13l4 4L19 7"
-                      ></path>
-                    </svg>
-                  </span>
-                  </div>
-
-                </td>
-                <td class="border-solid border border-gray-200">
-                  <div class="flex flex-col justify-center items-center">
-                    <span v-if="category.exclude_budget !== 0">
-                    <svg
-                      class="w-6 h-6"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M5 13l4 4L19 7"
-                      ></path>
-                    </svg>
-                  </span>
-                  </div>
-
-                </td>
-
-                <td class="border-solid border border-gray-200">
-                  <div class="flex flex-col justify-center items-center">
-                    <span v-if="category.exclude_totals !== 0">
-                    <svg
-                      class="w-6 h-6"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M5 13l4 4L19 7"
-                      ></path>
-                    </svg>
-                  </span>
-                  </div>
-
                 </td>
 
                 <td class="border-solid border border-gray-200">
@@ -222,8 +142,8 @@
       </div>
     </div>
 
-    <div v-if="createCategory === true">
-      <AddCategorySideModal v-on:close-modal="closeModal" />
+    <div v-if="createTag === true">
+      <AddTagSideModal v-on:close-modal="closeModal" />
     </div>
     <div v-if="editCategory === true">
       <EditCategorySideModal
@@ -242,30 +162,30 @@ import "vue-select/dist/vue-select.css";
 import DatePicker from "vue2-datepicker";
 import "vue2-datepicker/index.css";
 
-import AddCategorySideModal from "../components/Categories/AddCategorySideModal";
+import AddTagSideModal from "../components/Tags/AddTagSideModal";
 import EditCategorySideModal from "../components/Categories/EditCategorySideModal";
 
 export default {
   data: () => ({
     loading: true,
-    createCategory: false,
+    createTag: false,
     editCategory: false,
     category: null,
   }),
   components: {
     vSelect,
     DatePicker,
-    AddCategorySideModal,
+    AddTagSideModal,
     EditCategorySideModal,
   },
 
   mounted() {
     console.log("loaded");
-    this.fetchCategories();
+    this.fetchTags();
   },
 
   computed: mapGetters({
-    categories: "categories/categories",
+    tags: "tags/tags",
   }),
 
   methods: {
@@ -274,9 +194,9 @@ export default {
       this.createCategory = false;
     },
 
-    async fetchCategories() {
+    async fetchTags() {
       //Fetch categories
-      await this.$store.dispatch("categories/fetchCategories");
+      await this.$store.dispatch("tags/fetchTags");
       this.loading = false;
     },
 
