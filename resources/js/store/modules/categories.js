@@ -19,10 +19,19 @@ export const mutations = {
         state.categories.data.push({ data })
     },
 
-    [types.UPDATE_CATEGORY] (state, { data }) {
+    [types.UPDATE_CATEGORY] (state, data ) {
         console.log('state', state)
         console.log('data', data)
-        //state.categories.data = data
+        // state.categories.data = data
+
+        // console.log("cat id: ", state.category.data.id)
+        // console.log("data id: ", data.id)
+        state.categories.data = state.categories.data.map(category => {
+            if (category.id === data.id) {
+              return Object.assign({}, category, data)
+            }
+            return category
+          })
     }
 }
 
@@ -47,7 +56,6 @@ export const actions = {
     },
 
     async updateCategory({ commit }, payload) {
-
         const categoryID = payload.id
         console.log("ID: ", categoryID)
         console.log(payload)

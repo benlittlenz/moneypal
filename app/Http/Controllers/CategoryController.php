@@ -31,14 +31,12 @@ class CategoryController extends Controller
     public function update(Category $category)
     {
         ///dd(request());
-        $update = $category->update([
+        return $category->update([
             'display_name' => request('display_name'),
             'description' => request('description'),
             'income' => request('income'),
             'exclude_budget' => request('exclude_budget'),
             'exclude_totals' => request('exclude_totals')
         ]);
-
-        return $update;
     }
 }
