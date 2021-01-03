@@ -54,13 +54,13 @@
                       </label>
                       <div class="mt-1 rounded-md shadow-sm">
                         <input
-                          v-model="form.display_name"
-                          id="display_name"
+                          v-model="form.name"
+                          id="name"
                           type="text"
                           required
                           class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
                         />
-                        <has-error :form="form" field="display_name" />
+                        <has-error :form="form" field="name" />
                       </div>
                     </div>
 
@@ -213,7 +213,7 @@ export default {
       "#ed64a6",
     ],
     form: new Form({
-      display_name: "",
+      name: "",
       description: "",
       colorSelected: "#2196F3"
     }),

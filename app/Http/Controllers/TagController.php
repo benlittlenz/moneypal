@@ -12,4 +12,17 @@ class TagController extends Controller
     {
         return TagResource::collection(Tag::all());
     }
+
+    public function store() {
+        $data = request()->validate([
+            'name' => 'required',
+            'description' => '',
+            'color' => ''
+        ]);
+
+        $tag = Tag::create($data);
+        $tag->save();
+
+        return $tag;
+    }
 }
