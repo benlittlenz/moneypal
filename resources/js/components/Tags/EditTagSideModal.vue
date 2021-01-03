@@ -1,6 +1,6 @@
 <template>
   <section class="absolute inset-y-0 pl-16 max-w-full right-0 flex">
-    <div class="w-screen h-full max-w-md">
+    <div class="w-screen  max-w-md">
       <div
         class="h-full divide-y divide-gray-200 flex flex-col bg-gray-50 shadow-xl px-4"
       >
@@ -40,7 +40,7 @@
               Tag Information
             </label>
           </div>
-          <form class="h-full" @submit.prevent="create">
+          <form class="h-full" @submit.prevent="update">
             <div class="">
               <div>
                 <div class="px-4 divide-y divide-gray-200 sm:px-6 bg-white">
@@ -195,7 +195,7 @@ import vSelect from "vue-select";
 import "vue-select/dist/vue-select.css";
 
 export default {
-  //props: ["account"],
+  props: ["tag"],
   components: {
     vSelect,
   },
@@ -219,9 +219,15 @@ export default {
     }),
   }),
 
+      created() {
+        this.form.name = this.tag.name;
+        this.form.description = this.tag.description;
+        this.form.colorSelected = "#" + this.tag.color;
+    },
+
   methods: {
     ...mapActions({
-      createTag: "tags/createTag",
+      updateTag: "tags/updateTag",
     }),
     closeModal: function () {
       console.log("clicked close");
@@ -232,15 +238,17 @@ export default {
       console.log("HEY");
     },
 
-    async create() {
+    async update() {
       console.log(this.form);
+      console.log("HEY: ", this.tag.id)
       try {
-        const response = await this.createTag({
+        const response = await this.updateTag({
           data: {
             name: this.form.name,
             description: this.form.description,
-            color: this.form.colorSelected.split('#')[1]
+            color: this.form.colorSelected.split('#')[1],
           },
+          id: this.tag.id
         });
 
         console.log("RES: ", response);

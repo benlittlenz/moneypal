@@ -82,6 +82,11 @@
           <thead>
             <tr class="text-left h-6">
               <th
+                class="w-4 bg-gray-100 sticky top-0 border-solid border border-gray-200 px-6 py-3 text-gray-600 font-bold tracking-wider uppercase text-xs"
+              >
+
+              </th>
+              <th
                 class="bg-gray-100 sticky top-0 border-solid border border-gray-200 px-6 py-3 text-gray-600 font-bold tracking-wider uppercase text-xs"
               >
                 Name
@@ -92,7 +97,7 @@
                 Description
               </th>
               <th
-                class="w-4 bg-gray-100 sticky top-0 border-solid border border-gray-200 px-6 py-3 text-gray-600 font-bold tracking-wider uppercase text-xs"
+                class="w-6 bg-gray-100 sticky top-0 border-solid border border-gray-200 px-6 py-3 text-gray-600 font-bold tracking-wider uppercase text-xs"
               ></th>
             </tr>
           </thead>
@@ -104,6 +109,15 @@
                 class="max-h-2 hover:bg-gray-50 cursor-pointer"
                 v-on:click="updateCategory(tag)"
               >
+                <td class="border-solid border border-gray-200">
+                  <div class="flex flex-col justify-center items-center">
+                    <span
+                      :style="`background: #${tag.color};`"
+                      class="text-gray-700 w-4 h-4 flex items-center">
+                    </span>
+                  </div>
+
+                </td>
                 <td class="border-solid border border-gray-200">
                   <span class="text-gray-700 px-6 py-1 flex items-center">{{
                     tag.name
@@ -145,10 +159,10 @@
     <div v-if="createTag === true">
       <AddTagSideModal v-on:close-modal="closeModal" />
     </div>
-    <div v-if="editCategory === true">
-      <EditCategorySideModal
+    <div v-if="editTag === true">
+      <EditTagSideModal
         v-on:close-modal="closeModal"
-        :category="category"
+        :tag="tag"
       />
     </div>
   </div>
@@ -163,7 +177,7 @@ import DatePicker from "vue2-datepicker";
 import "vue2-datepicker/index.css";
 
 import AddTagSideModal from "../components/Tags/AddTagSideModal";
-import EditCategorySideModal from "../components/Categories/EditCategorySideModal";
+import EditTagSideModal from "../components/Tags/EditTagSideModal";
 
 export default {
   data: () => ({
@@ -176,7 +190,7 @@ export default {
     vSelect,
     DatePicker,
     AddTagSideModal,
-    EditCategorySideModal,
+    EditTagSideModal,
   },
 
   mounted() {
@@ -202,8 +216,8 @@ export default {
 
     updateCategory(record) {
       console.log(record);
-      this.editCategory = true;
-      this.category = record;
+      this.editTag = true;
+      this.tag = record;
       //this.editing.account = record;
       //   this.editing.form.date = new Date(record.date);
       //   this.editing.form.account_id = record.account.id

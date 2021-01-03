@@ -19,6 +19,7 @@ export const UPDATE_CATEGORY = 'UPDATE_CATEGORY'
 // Tags
 export const FETCH_TAGS = 'FETCH_TAGS'
 export const CREATE_TAG = 'CREATE_TAG'
+export const UPDATE_TAG = 'UPDATE_TAG'
 
 
 // lang.js
