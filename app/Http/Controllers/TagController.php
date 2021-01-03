@@ -25,4 +25,14 @@ class TagController extends Controller
 
         return $tag;
     }
+
+    public function update(Tag $tag)
+    {
+        //dd(request());
+        return $tag->update([
+            'name' => request('name'),
+            'description' => request('description'),
+            'color' => request('color')
+        ]);
+    }
 }

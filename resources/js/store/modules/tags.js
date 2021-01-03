@@ -19,20 +19,20 @@ export const mutations = {
         state.tags.data.push({ data })
     },
 
-    // [types.UPDATE_CATEGORY] (state, data ) {
-    //     console.log('state', state)
-    //     console.log('data', data)
-    //     // state.categories.data = data
+    [types.UPDATE_TAG] (state, data ) {
+        console.log('state', state)
+        console.log('data', data)
+        // state.categories.data = data
 
-    //     // console.log("cat id: ", state.category.data.id)
-    //     // console.log("data id: ", data.id)
-    //     state.categories.data = state.categories.data.map(category => {
-    //         if (category.id === data.id) {
-    //           return Object.assign({}, category, data)
-    //         }
-    //         return category
-    //       })
-    // }
+        // console.log("cat id: ", state.category.data.id)
+        // console.log("data id: ", data.id)
+        state.tags.data = state.tags.data.map(tag => {
+            if (tag.id === data.id) {
+              return Object.assign({}, tag, data)
+            }
+            return tag
+          })
+    }
 }
 
 // actions
@@ -54,11 +54,11 @@ export const actions = {
         return await axios.post('/api/tags', data)
     },
 
-    // async updateCategory({ commit }, payload) {
-    //     const categoryID = payload.id
-    //     console.log("ID: ", categoryID)
-    //     console.log(payload)
-    //     commit(types.UPDATE_CATEGORY, payload)
-    //     return await axios.patch(`/api/categories/${categoryID}`, payload.data)
-    // },
+    async updateTag({ commit }, payload) {
+        const tagID = payload.id
+        console.log("ID: ", tagID)
+        console.log(payload)
+        commit(types.UPDATE_TAG, payload)
+        return await axios.patch(`/api/tags/${tagID}`, payload.data)
+    },
 }

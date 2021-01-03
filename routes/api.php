@@ -55,4 +55,5 @@ Route::get('tags', [TagController::class, 'index']);
 Route::post('transactions', [TransactionController::class, 'store']);
 Route::post('categories', [CategoryController::class, 'store']);
 Route::post('tags', [TagController::class, 'store']);
+Route::patch('tags/{tag}', [TagController::class, 'update']);
 Route::patch('categories/{category}', [CategoryController::class, 'update']);
