@@ -20,7 +20,7 @@
             d="M12 6v6m0 0v6m0-6h6m-6 0H6"
           ></path>
         </svg>
-        <span class="ml-2">Add Account</span>
+        <span class="ml-2">Create Tag</span>
       </button>
     </div>
 
@@ -169,8 +169,8 @@ export default {
   data: () => ({
     loading: true,
     createTag: false,
-    editCategory: false,
-    category: null,
+    editTag: false,
+    tag: null,
   }),
   components: {
     vSelect,
@@ -190,8 +190,8 @@ export default {
 
   methods: {
     closeModal() {
-      this.editCategory = false;
-      this.createCategory = false;
+      this.editTag = false;
+      this.createTag = false;
     },
 
     async fetchTags() {
