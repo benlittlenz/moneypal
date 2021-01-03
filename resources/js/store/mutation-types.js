@@ -16,6 +16,10 @@ export const FETCH_CATEGORIES = 'FETCH_CATEGORIES'
 export const CREATE_CATEGORY = 'CREATE_CATEGORY'
 export const UPDATE_CATEGORY = 'UPDATE_CATEGORY'
 
+// Tags
+export const FETCH_TAGS = 'FETCH_TAGS'
+export const CREATE_TAG = 'CREATE_TAG'
+
 
 // lang.js
 export const SET_LOCALE = 'SET_LOCALE'
