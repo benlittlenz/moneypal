@@ -221,7 +221,7 @@ export default {
 
   methods: {
     ...mapActions({
-      createCategory: "categories/createCategory",
+      createTag: "tags/createTag",
     }),
     closeModal: function () {
       console.log("clicked close");
@@ -235,27 +235,23 @@ export default {
     async create() {
       console.log(this.form);
       try {
-        const response = await this.createCategory({
+        const response = await this.createTag({
           data: {
-            display_name: this.form.display_name,
+            name: this.form.name,
             description: this.form.description,
-            income: this.form.income === null ? 0 : this.form.income,
-            exclude_budget:
-              this.form.exclude_budget === null ? 0 : this.form.exclude_budget,
-            exclude_totals:
-              this.form.exclude_totals === null ? 0 : this.form.exclude_totals,
+            color: this.form.colorSelected.split('#')[0]
           },
         });
 
         console.log("RES: ", response);
         this.$emit("close-modal");
-        if (response.data) {
-          console.log("successfully created category!");
-          Bus.$emit("flash-message", {
-            type: "success",
-            text: "Category successfully created!",
-          });
-        }
+        // if (response.data) {
+        //   console.log("successfully created category!");
+        //   Bus.$emit("flash-message", {
+        //     type: "success",
+        //     text: "Category successfully created!",
+        //   });
+        // }
       } catch (err) {
         console.log("ERROR: ", err);
       }

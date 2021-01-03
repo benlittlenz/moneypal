@@ -16,9 +16,9 @@ class TagResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->account_type,
-            'description' => $this->sub_type,
-            'color' => $this->account_name,
+            'name' => $this->name,
+            'description' => $this->description,
+            'color' => $this->color,
             //'transaction' => new TransactionResource($this->transaction)
         ];
     }

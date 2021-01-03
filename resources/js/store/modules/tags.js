@@ -15,9 +15,9 @@ export const mutations = {
     [types.FETCH_TAGS](state, { tags }) {
         state.tags = tags
     },
-    // [types.CREATE_CATEGORY](state, { data }) {
-    //     state.tags.data.push({ data })
-    // },
+    [types.CREATE_TAG](state, { data }) {
+        state.tags.data.push({ data })
+    },
 
     // [types.UPDATE_CATEGORY] (state, data ) {
     //     console.log('state', state)
@@ -42,18 +42,17 @@ export const actions = {
             const { data } = await axios.get('/api/tags')
             console.log(data)
 
-            commit(types.FETCH_TAGS, { categories: data })
+            commit(types.FETCH_TAGS, { tags: data })
         } catch (e) {
             console.log("ERROR", e)
-            //commit(types.FETCH_USER_FAILURE)
         }
     },
-    // async createCategory({ commit }, { data }) {
-    //     console.log("DATA", data)
-    //     commit(types.CREATE_CATEGORY, { data })
+    async createTag({ commit }, { data }) {
+        console.log("DATA", data)
+        commit(types.CREATE_TAG, { data })
 
-    //     return await axios.post('/api/categories', data)
-    // },
+        return await axios.post('/api/tags', data)
+    },
 
     // async updateCategory({ commit }, payload) {
     //     const categoryID = payload.id
