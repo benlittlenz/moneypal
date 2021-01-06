@@ -3,23 +3,36 @@
 namespace App\Http\Controllers;
 
 use App\Models\Budget;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class BudgetController extends Controller
 {
-    public function index()
+    public function show(Request $request)
     {
-
+        //dd($request->month);
         $day = '01';
-        $month = date('m');
-        $year = date('Y');
+        $month = $request->month;
+        $year = $request->year;
 
         $date = $year . '-' . $month . '-' . $day;
 
-        $budget = Budget::firstOrCreate([
-            'starts_on' => $date
-        ]);
+        $budget = Budget::where('starts_on', $date)->get();
+
+        if(count($budget) < 1) {
+            //dd('less than');
+            $categories = Category::all();
+            //dd($categories);
+            foreach($categories as $category) {
+                Budget::create([
+                    'category_id' => $category->id,
+                    'starts_on' => $date,
+                ]);
+            }
+        }
+
+        //dd(count($budget));
 
         $grouped = DB::table('categories')
             ->leftJoin('transactions', function ($join) use ($month) {
