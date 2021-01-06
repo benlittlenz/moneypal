@@ -15,16 +15,15 @@ class BudgetController extends Controller
         $day = '01';
         $month = $request->month;
         $year = $request->year;
-
         $date = $year . '-' . $month . '-' . $day;
 
         $budget = Budget::where('starts_on', $date)->get();
 
-        if(count($budget) < 1) {
+        if (count($budget) < 1) {
             //dd('less than');
             $categories = Category::all();
             //dd($categories);
-            foreach($categories as $category) {
+            foreach ($categories as $category) {
                 Budget::create([
                     'category_id' => $category->id,
                     'starts_on' => $date,
@@ -34,26 +33,26 @@ class BudgetController extends Controller
 
         //dd(count($budget));
 
-        $grouped = DB::table('categories')
-            ->leftJoin('transactions', function ($join) use ($month) {
+        return DB::table('categories')
+            ->leftJoin('transactions', function ($join) use ($month, $year) {
                 $join
                     ->on('transactions.category_id', '=', 'categories.id')
-                    ->whereRaw('MONTH(date) = ?', [$month]);
+                    ->whereRaw('MONTH(date) = ?', [$month])
+                    ->whereRaw('YEAR(date) = ?', [$year]);
             })
-              ->leftJoin('budgets', function ($join) use ($month) {
+            ->leftJoin('budgets', function ($join) use ($month, $year) {
                 $join
-                      ->on('budgets.id', '=', 'categories.id')
-                      ->whereRaw('MONTH(starts_on) = ?', [$month]);
+                    ->on('budgets.category_id', '=', 'categories.id')
+                    ->whereRaw('MONTH(starts_on) = ?', [$month])
+                    ->whereRaw('YEAR(starts_on) = ?', [$year]);
             })
-            ->groupBy('categories.display_name', 'budgets.amount')
+            ->groupBy('categories.display_name', 'budgets.amount', 'categories.id')
             ->selectRaw(
-                'SUM(transactions.amount) AS sum, categories.display_name AS name, budgets.amount AS amount'
+                'SUM(transactions.amount) AS sum,
+                categories.display_name AS display_name,
+                budgets.amount AS budgeted_amount,
+                categories.id AS category_id'
             )
-          ->get();
+            ->get();
     }
 }
-
-
-//
-//
-//
