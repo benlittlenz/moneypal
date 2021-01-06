@@ -253,13 +253,13 @@ export default {
 
         console.log("RES: ", response);
         this.$emit("close-modal");
-        // if (response.data) {
-        //   console.log("successfully created category!");
-        //   Bus.$emit("flash-message", {
-        //     type: "success",
-        //     text: "Category successfully created!",
-        //   });
-        // }
+        if (response.data) {
+          console.log("successfully created category!");
+          Bus.$emit("flash-message", {
+            type: "success",
+            text: "Tag successfully updated!",
+          });
+        }
       } catch (err) {
         console.log("ERROR: ", err);
       }
