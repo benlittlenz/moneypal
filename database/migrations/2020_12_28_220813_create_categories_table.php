@@ -34,3 +34,17 @@ class CreateCategoriesTable extends Migration
         Schema::dropIfExists('categories');
     }
 }
+
+// Budgets have multiple categories i.e
+// -- Groceries, Coffee, Rent etc.
+
+// Budgets are grouped by month
+// For each month, a budgeted amount is set i.e a budget for February
+// Groceries - $400
+// Coffee - $80
+// Rent - $3000
+
+// And next to the budgeted amount for each category, there is an actual amount of transactions that are summed i.e
+// Groceries - $300
+// Coffee - $100
+// Rent - $3000
