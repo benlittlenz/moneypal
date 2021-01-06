@@ -21,6 +21,8 @@ export const FETCH_TAGS = 'FETCH_TAGS'
 export const CREATE_TAG = 'CREATE_TAG'
 export const UPDATE_TAG = 'UPDATE_TAG'
 
+// Budgets
+export const FETCH_BUDGETS = 'FETCH_BUDGETS'
 
 // lang.js
 export const SET_LOCALE = 'SET_LOCALE'
