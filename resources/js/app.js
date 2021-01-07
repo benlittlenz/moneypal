@@ -6,7 +6,13 @@ import App from '~/components/App'
 import '~/plugins'
 import '~/components'
 
+import { MonthPicker } from 'vue-month-picker'
+import { MonthPickerInput } from 'vue-month-picker'
+import vClickOutside from 'v-click-outside'
 
+Vue.use(vClickOutside)
+Vue.use(MonthPicker)
+Vue.use(MonthPickerInput)
 
 Vue.config.productionTip = false
 Vue.directive('click-outside', {

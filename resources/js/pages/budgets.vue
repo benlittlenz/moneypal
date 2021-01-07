@@ -5,8 +5,11 @@
         <div v-if="loading">Loading...</div>
 
         <div v-else>
-          <div class="py-4">
+            <div class="h-8 w-8 bg-red-500" v-click-outside="onClickOutside"> hey</div>
+          <div class="py-4 mb-32">
             <h2>{{ month_display }} - {{ year_display }}</h2>
+
+            <month-picker-input @change="dateChange"></month-picker-input>
           </div>
           <table
             class="border-collapse table-auto w-full whitespace-no-wrap bg-white table-striped relative"
@@ -41,7 +44,6 @@
                   v-for="budget in budgets"
                   :key="budget.budget_id"
                   class="max-h-2 hover:bg-gray-50 cursor-pointer"
-                  v-on:click="updateCategory(category)"
                 >
                   <td class="border-solid border border-gray-200">
                     <span class="text-gray-700 px-6 py-1 flex items-center">{{
@@ -51,7 +53,9 @@
                   <td class="border-solid border border-gray-200">
                     <div class="">
                       <input
+                        @change="onBudgetAmountChange"
                         :value="budget.budgeted_amount"
+                        :id="budget.budget_id"
                         type="decimal"
                         placeholder="Set a Budget"
                         class="text-gray-700 px-6 py-1 flex items-center border-2 border-transparent hover:border-red-200 focus:border-blue-500"
@@ -81,6 +85,7 @@
 <script>
 import { mapGetters } from "vuex";
 import moment from "moment";
+import { MonthPickerInput } from "vue-month-picker";
 import Form from "vform";
 import vSelect from "vue-select";
 import "vue-select/dist/vue-select.css";
@@ -92,7 +97,10 @@ export default {
     loading: true,
     createCategory: false,
     editCategory: false,
-    category: null,
+    editing: {
+        budget_id: null,
+        budget_amount: null,
+    },
     month: null,
     year: null,
     month_display: "",
@@ -100,7 +108,7 @@ export default {
   }),
   components: {
     vSelect,
-    DatePicker,
+    MonthPickerInput,
   },
 
   mounted() {
@@ -135,6 +143,29 @@ export default {
       //   this.editing.form.account_id = record.account.id
       //   this.editing.form.category_id = record.category.id
     },
+
+    async dateChange(date) {
+      console.log(date);
+      this.year = date.year
+      this.month = ('0' + date.monthIndex).slice(-2)
+      this.month_display = date.month;
+
+        await this.$store.dispatch("budgets/fetchBudgets", {
+        month: ('0' + date.monthIndex).slice(-2),
+        year: date.year,
+      });
+    },
+    onBudgetAmountChange({ target }) {
+        console.log('target: ', target)
+        this.editing.budget_id = target.id
+        this.editing.budget_amount = target.value
+        console.log('budget_id', this.editing.budget_id)
+        console.log('budget_amount', this.editing.budget_amount)
+    },
+
+          onClickOutside (event) {
+        //console.log('Clicked outside. Event: ', event)
+      }
   },
 };
 </script>
