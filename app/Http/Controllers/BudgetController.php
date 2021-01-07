@@ -46,12 +46,13 @@ class BudgetController extends Controller
                     ->whereRaw('MONTH(starts_on) = ?', [$month])
                     ->whereRaw('YEAR(starts_on) = ?', [$year]);
             })
-            ->groupBy('categories.display_name', 'budgets.amount', 'categories.id')
+            ->groupBy('categories.display_name', 'budgets.amount', 'categories.id', 'budgets.id')
             ->selectRaw(
                 'SUM(transactions.amount) AS sum,
                 categories.display_name AS display_name,
                 budgets.amount AS budgeted_amount,
-                categories.id AS category_id'
+                categories.id AS category_id,
+                budgets.id AS budget_id'
             )
             ->get();
     }
