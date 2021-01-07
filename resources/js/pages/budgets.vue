@@ -1,151 +1,78 @@
 <template>
-  <div class="mx-auto mt-20 w-11/12">
-
-    <div class="bg-white rounded-sm shadow overflow-y-auto relative mt-2">
+  <div class="mx-auto mt-20 w-10/12">
+    <div class="">
       <div>
-          gdhfghgf
-        <!-- <table
-          class="border-collapse table-auto w-full whitespace-no-wrap bg-white table-striped relative"
-        >
-          <thead>
-            <tr class="text-left h-6">
-              <th
-                class="bg-gray-100 sticky top-0 border-solid border border-gray-200 px-6 py-3 text-gray-600 font-bold tracking-wider uppercase text-xs"
-              >
-                Display Name
-              </th>
-              <th
-                class="bg-gray-100 sticky top-0 border-solid border border-gray-200 px-6 py-3 text-gray-600 font-bold tracking-wider uppercase text-xs"
-              >
-                Description
-              </th>
-              <th
-                class="w-40 text-center bg-gray-100 sticky top-0 border-solid border border-gray-200 px-6 py-3 text-gray-600 font-bold tracking-wider uppercase text-xs"
-              >
-                Income
-              </th>
-              <th
-                class="w-40 text-center bg-gray-100 sticky top-0 border-solid border border-gray-200 px-6 py-3 text-gray-600 font-bold tracking-wider uppercase text-xs"
-              >
-                Exclude From Budget
-              </th>
-              <th
-                class="w-40 text-center bg-gray-100 sticky top-0 border-solid border border-gray-200 px-6 py-3 text-gray-600 font-bold tracking-wider uppercase text-xs"
-              >
-                Exclude From Totals
-              </th>
-              <th
-                class="w-4 bg-gray-100 sticky top-0 border-solid border border-gray-200 px-6 py-3 text-gray-600 font-bold tracking-wider uppercase text-xs"
-              ></th>
-            </tr>
-          </thead>
-          <tbody>
-            <template>
-              <tr
-                v-for="category in categories.data"
-                :key="category.id"
-                class="max-h-2 hover:bg-gray-50 cursor-pointer"
-                v-on:click="updateCategory(category)"
-              >
-                <td class="border-solid border border-gray-200">
-                  <span class="text-gray-700 px-6 py-1 flex items-center">{{
-                    category.display_name
-                  }}</span>
-                </td>
-                <td class="border-solid border border-gray-200">
-                  <span class="text-gray-700 px-6 py-1 flex items-center">{{
-                    category.description
-                  }}</span>
-                </td>
-                <td class="border-solid border border-gray-200">
-                  <div class="flex flex-col justify-center items-center">
-                    <span v-if="category.income !== 0">
-                    <svg
-                      class="w-6 h-6"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M5 13l4 4L19 7"
-                      ></path>
-                    </svg>
-                  </span>
-                  </div>
+        <div v-if="loading">Loading...</div>
 
-                </td>
-                <td class="border-solid border border-gray-200">
-                  <div class="flex flex-col justify-center items-center">
-                    <span v-if="category.exclude_budget !== 0">
-                    <svg
-                      class="w-6 h-6"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M5 13l4 4L19 7"
-                      ></path>
-                    </svg>
-                  </span>
-                  </div>
-
-                </td>
-
-                <td class="border-solid border border-gray-200">
-                  <div class="flex flex-col justify-center items-center">
-                    <span v-if="category.exclude_totals !== 0">
-                    <svg
-                      class="w-6 h-6"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M5 13l4 4L19 7"
-                      ></path>
-                    </svg>
-                  </span>
-                  </div>
-
-                </td>
-
-                <td class="border-solid border border-gray-200">
-                  <div class="flex flex-col justify-center items-center">
-                    <span class="">
-                      <svg
-                        class="w-6 h-6"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M9 5l7 7-7 7"
-                        ></path>
-                      </svg>
-                    </span>
-                  </div>
-                </td>
+        <div v-else>
+          <div class="py-4">
+            <h2>{{ month_display }} - {{ year_display }}</h2>
+          </div>
+          <table
+            class="border-collapse table-auto w-full whitespace-no-wrap bg-white table-striped relative"
+          >
+            <thead>
+              <tr class="text-left h-6">
+                <th
+                  class="bg-gray-100 sticky top-0 border-solid border border-gray-200 px-6 py-3 text-gray-600 font-bold tracking-wider uppercase text-xs"
+                >
+                  Category
+                </th>
+                <th
+                  class="w-32 bg-gray-100 sticky top-0 border-solid border border-gray-200 px-6 py-3 text-gray-600 font-bold tracking-wider uppercase text-xs"
+                >
+                  This Month's Budget
+                </th>
+                <th
+                  class="w-40 text-center bg-gray-100 sticky top-0 border-solid border border-gray-200 px-6 py-3 text-gray-600 font-bold tracking-wider uppercase text-xs"
+                >
+                  This Month's Spending
+                </th>
+                <th
+                  class="w-40 text-center bg-gray-100 sticky top-0 border-solid border border-gray-200 px-6 py-3 text-gray-600 font-bold tracking-wider uppercase text-xs"
+                >
+                  Difference
+                </th>
               </tr>
-            </template>
-          </tbody>
-        </table> -->
+            </thead>
+            <tbody>
+              <template>
+                <tr
+                  v-for="budget in budgets"
+                  :key="budget.budget_id"
+                  class="max-h-2 hover:bg-gray-50 cursor-pointer"
+                  v-on:click="updateCategory(category)"
+                >
+                  <td class="border-solid border border-gray-200">
+                    <span class="text-gray-700 px-6 py-1 flex items-center">{{
+                      budget.display_name
+                    }}</span>
+                  </td>
+                  <td class="border-solid border border-gray-200">
+                    <div class="">
+                      <input
+                        :value="budget.budgeted_amount"
+                        type="decimal"
+                        placeholder="Set a Budget"
+                        class="text-gray-700 px-6 py-1 flex items-center border-2 border-transparent hover:border-red-200 focus:border-blue-500"
+                      />
+                    </div>
+                  </td>
+                  <td class="border-solid border border-gray-200">
+                    <span class="text-gray-700 px-6 py-1 flex items-center"
+                      >${{ budget.sum }}</span
+                    >
+                  </td>
+                  <td class="border-solid border border-gray-200">
+                    <span class="text-gray-700 px-6 py-1 flex items-center"
+                      >${{ budget.budgeted_amount - budget.sum }}</span
+                    >
+                  </td>
+                </tr>
+              </template>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
@@ -153,6 +80,7 @@
 
 <script>
 import { mapGetters } from "vuex";
+import moment from "moment";
 import Form from "vform";
 import vSelect from "vue-select";
 import "vue-select/dist/vue-select.css";
@@ -165,6 +93,10 @@ export default {
     createCategory: false,
     editCategory: false,
     category: null,
+    month: null,
+    year: null,
+    month_display: "",
+    year_display: "",
   }),
   components: {
     vSelect,
@@ -173,7 +105,7 @@ export default {
 
   mounted() {
     console.log("loaded");
-    this.fetchBudgets('11/2021');
+    this.fetchBudgets();
   },
 
   computed: mapGetters({
@@ -181,15 +113,15 @@ export default {
   }),
 
   methods: {
-    closeModal() {
-
-    },
-
+    closeModal() {},
     async fetchBudgets() {
-      //Fetch categories
+      this.year = moment().year();
+      this.month = moment().month() + 1;
+      this.month_display = moment().format("MMMM");
+      this.year_display = moment().format("YYYY");
       await this.$store.dispatch("budgets/fetchBudgets", {
-          month: '11',
-          year: '2021',
+        month: this.month,
+        year: this.year,
       });
       this.loading = false;
     },
