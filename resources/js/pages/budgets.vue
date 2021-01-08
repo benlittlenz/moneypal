@@ -2,14 +2,13 @@
   <div class="mx-auto mt-20 w-10/12">
     <div class="">
       <div>
-        <div v-if="loading">Loading...</div>
+        <loading ref="loading" />
 
-        <div v-else>
-            <div class="h-8 w-8 bg-red-500" v-click-outside="onClickOutside"> hey</div>
+        <div>
           <div class="py-4 mb-32">
             <h2>{{ month_display }} - {{ year_display }}</h2>
 
-            <month-picker-input @change="dateChange"></month-picker-input>
+            <month-picker @change="dateChange"></month-picker>
           </div>
           <table
             class="border-collapse table-auto w-full whitespace-no-wrap bg-white table-striped relative"
@@ -83,14 +82,16 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import moment from "moment";
-import { MonthPickerInput } from "vue-month-picker";
+import { MonthPicker } from "vue-month-picker";
 import Form from "vform";
 import vSelect from "vue-select";
 import "vue-select/dist/vue-select.css";
 import DatePicker from "vue2-datepicker";
 import "vue2-datepicker/index.css";
+
+import Loading from '../components/Loading'
 
 export default {
   data: () => ({
@@ -108,12 +109,14 @@ export default {
   }),
   components: {
     vSelect,
-    MonthPickerInput,
+    MonthPicker,
+    Loading
   },
 
   mounted() {
     console.log("loaded");
     this.fetchBudgets();
+    this.$loading = this.$refs.loading
   },
 
   computed: mapGetters({
@@ -121,6 +124,10 @@ export default {
   }),
 
   methods: {
+    ...mapActions({
+      updateBudget: "budgets/updateBudget",
+    }),
+
     closeModal() {},
     async fetchBudgets() {
       this.year = moment().year();
@@ -138,10 +145,6 @@ export default {
       console.log(record);
       this.editCategory = true;
       this.category = record;
-      //this.editing.account = record;
-      //   this.editing.form.date = new Date(record.date);
-      //   this.editing.form.account_id = record.account.id
-      //   this.editing.form.category_id = record.category.id
     },
 
     async dateChange(date) {
@@ -155,17 +158,21 @@ export default {
         year: date.year,
       });
     },
-    onBudgetAmountChange({ target }) {
+    async onBudgetAmountChange({ target }) {
         console.log('target: ', target)
-        this.editing.budget_id = target.id
-        this.editing.budget_amount = target.value
-        console.log('budget_id', this.editing.budget_id)
-        console.log('budget_amount', this.editing.budget_amount)
+        const budgetID = target.id
+        const budgetAmount = target.value
+        console.log('budget_id', budgetID)
+        console.log('budget_amount', budgetAmount)
+
+        const response = await this.updateBudget({
+            data: {
+                budget_id: budgetID,
+                budget_amount: budgetAmount,
+            }
+        })
     },
 
-          onClickOutside (event) {
-        //console.log('Clicked outside. Event: ', event)
-      }
   },
 };
 </script>

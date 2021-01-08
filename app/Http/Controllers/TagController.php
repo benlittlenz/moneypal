@@ -28,6 +28,7 @@ class TagController extends Controller
 
     public function update(Tag $tag)
     {
+        dd($tag);
         //dd(request());
         return $tag->update([
             'name' => request('name'),

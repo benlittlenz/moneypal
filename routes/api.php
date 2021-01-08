@@ -54,8 +54,10 @@ Route::get('accounts', [AccountController::class, 'index']);
 Route::get('tags', [TagController::class, 'index']);
 Route::get('budgets/{month}/{year}', [BudgetController::class, 'show']);
 
+
 Route::post('transactions', [TransactionController::class, 'store']);
 Route::post('categories', [CategoryController::class, 'store']);
 Route::post('tags', [TagController::class, 'store']);
 Route::patch('tags/{tag}', [TagController::class, 'update']);
 Route::patch('categories/{category}', [CategoryController::class, 'update']);
+Route::patch('budgets/{budget}', [BudgetController::class, 'update']);
