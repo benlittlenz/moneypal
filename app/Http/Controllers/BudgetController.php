@@ -56,4 +56,12 @@ class BudgetController extends Controller
             )
             ->get();
     }
+
+    public function update(Budget $budget)
+    {
+        //dd(request('budget_amount'));
+        return $budget->update([
+            'amount' => request('budget_amount')
+        ]);
+    }
 }

@@ -46,11 +46,14 @@ export const actions = {
             //commit(types.FETCH_USER_FAILURE)
         }
     },
-    // async updateBudget({ commit }, payload) {
-    //     const categoryID = payload.id
-    //     console.log("ID: ", categoryID)
-    //     console.log(payload)
-    //     commit(types.UPDATE_CATEGORY, payload)
-    //     return await axios.patch(`/api/categories/${categoryID}`, payload.data)
-    // },
+    async updateBudget({ commit }, payload) {
+        // const categoryID = payload.id
+        console.log("payload: ", payload)
+        const budgetID = payload.data.budget_id
+        // console.log(payload)
+        //commit(types.UPDATE_BUDGET, payload)
+        return await axios.patch(`/api/budgets/${budgetID}`, {
+            budget_amount: payload.data.budget_amount
+        })
+    },
 }
