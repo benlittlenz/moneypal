@@ -265,10 +265,11 @@ export default {
 
   mounted() {
     console.log("loaded");
-    this.fetchCategories();
+    this.fetchRecurrings();
   },
 
   computed: mapGetters({
+    recurrings: "recurrings/recurrings",
     categories: "categories/categories",
     accounts: "accounts/accounts",
   }),
@@ -279,9 +280,10 @@ export default {
       this.createRecurring = false;
     },
 
-    async fetchCategories() {
+    async fetchRecurrings() {
+      // Fetch Recurring items
+      await this.$store.dispatch("recurrings/fetchRecurrings");
       //Fetch categories
-
       await this.$store.dispatch("categories/fetchCategories");
       //Fetch Accounts
       await this.$store.dispatch("accounts/fetchAccounts");
