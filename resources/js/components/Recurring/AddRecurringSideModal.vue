@@ -41,182 +41,186 @@
             </label>
           </div>
           <form @submit.prevent="create">
-            <div class="px-4 divide-y divide-gray-200 sm:px-6 bg-white">
-              <div class="space-y-6 pt-6 pb-5">
-                <div class="mt-6">
-                  <label
-                    for="merchant"
-                    class="block text-sm font-medium leading-5 text-gray-700"
-                  >
-                    Payee
-                  </label>
-                  <div class="mt-1 rounded-md shadow-sm">
-                    <input
-                      v-model="form.merchant"
-                      id="merchant"
-                      type="text"
-                      placeholder="Netflix"
-                      required
-                      class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
-                    />
-                    <has-error :form="form" field="merchant" />
-                  </div>
-                </div>
-
-                <div class="mt-6">
-                  <label
-                    for="billing_date"
-                    class="block text-sm font-medium leading-5 text-gray-700"
-                  >
-                    Billing Date
-                  </label>
-                  <div class="mt-1">
-                    <date-picker
-                      v-model="form.billing_date"
-                      type="date"
-                      format="DD/MM/YYYY"
-                    ></date-picker>
-                  </div>
-                </div>
-                <div class="mt-6">
-                  <label
-                    for="repeating_cadence"
-                    class="block text-sm font-medium leading-5 text-gray-700"
-                  >
-                    Repeating Cycle
-                  </label>
-                  <div class="mt-1 rounded-md shadow-sm">
-                    <v-select
-                      label="repeating_cadence"
-                      :options="cadence"
-                      v-model="form.repeating_cadence"
-                    >
-                      <template #search="{ attributes, events }">
+            <div>
+              <div>
+                <div class="px-4 divide-y divide-gray-200 sm:px-6 bg-white">
+                  <div class="space-y-6 pt-6 pb-5">
+                    <div class="mt-6">
+                      <label
+                        for="merchant"
+                        class="block text-sm font-medium leading-5 text-gray-700"
+                      >
+                        Payee
+                      </label>
+                      <div class="mt-1 rounded-md shadow-sm">
                         <input
-                          class="vs__search"
-                          :required="!form.repeating_cadence"
-                          v-bind="attributes"
-                          v-on="events"
+                          v-model="form.merchant"
+                          id="merchant"
+                          type="text"
+                          placeholder="Netflix"
+                          required
+                          class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
                         />
-                      </template>
-                    </v-select>
-                    <has-error :form="form" field="repeating_cadence" />
-                  </div>
-                </div>
-                <div class="mt-6">
-                  <label
-                    for="category_id"
-                    class="block text-sm font-medium leading-5 text-gray-700"
-                  >
-                    Category
-                  </label>
-                  <div class="mt-1 rounded-md shadow-sm">
-                    <v-select
-                      label="display_name"
-                      :options="categories"
-                      v-model="form.category_id"
-                      :reduce="(category) => category.id"
-                    >
-                      <template #search="{ attributes, events }">
+                        <has-error :form="form" field="merchant" />
+                      </div>
+                    </div>
+
+                    <div class="mt-6">
+                      <label
+                        for="billing_date"
+                        class="block text-sm font-medium leading-5 text-gray-700"
+                      >
+                        Billing Date
+                      </label>
+                      <div class="mt-1">
+                        <date-picker
+                          v-model="form.billing_date"
+                          type="date"
+                          format="DD/MM/YYYY"
+                        ></date-picker>
+                      </div>
+                    </div>
+                    <div class="mt-6">
+                      <label
+                        for="repeating_cadence"
+                        class="block text-sm font-medium leading-5 text-gray-700"
+                      >
+                        Repeating Cycle
+                      </label>
+                      <div class="mt-1 rounded-md shadow-sm">
+                        <v-select
+                          label="repeating_cadence"
+                          :options="cadence"
+                          v-model="form.repeating_cadence"
+                        >
+                          <template #search="{ attributes, events }">
+                            <input
+                              class="vs__search"
+                              :required="!form.repeating_cadence"
+                              v-bind="attributes"
+                              v-on="events"
+                            />
+                          </template>
+                        </v-select>
+                        <has-error :form="form" field="repeating_cadence" />
+                      </div>
+                    </div>
+                    <div class="mt-6">
+                      <label
+                        for="category_id"
+                        class="block text-sm font-medium leading-5 text-gray-700"
+                      >
+                        Category
+                      </label>
+                      <div class="mt-1 rounded-md shadow-sm">
+                        <v-select
+                          label="display_name"
+                          :options="categories"
+                          v-model="form.category_id"
+                          :reduce="(category) => category.id"
+                        >
+                          <template #search="{ attributes, events }">
+                            <input
+                              class="vs__search"
+                              :required="!form.category_id"
+                              v-bind="attributes"
+                              v-on="events"
+                            />
+                          </template>
+                        </v-select>
+                        <has-error :form="form" field="category_id" />
+                      </div>
+                    </div>
+                    <div class="mt-6">
+                      <label
+                        for="account_id"
+                        class="block text-sm font-medium leading-5 text-gray-700"
+                      >
+                        Account
+                      </label>
+                      <div class="mt-1 rounded-md shadow-sm">
+                        <v-select
+                          label="account_name"
+                          :options="accounts"
+                          v-model="form.account_id"
+                          :reduce="(account) => account.id"
+                        >
+                          <template #search="{ attributes, events }">
+                            <input
+                              class="vs__search"
+                              :required="!form.account_id"
+                              v-bind="attributes"
+                              v-on="events"
+                            /> </template
+                        ></v-select>
+                        <has-error :form="form" field="bankName" />
+                      </div>
+                    </div>
+
+                    <div class="mt-6">
+                      <label
+                        for="description"
+                        class="block text-sm font-medium leading-5 text-gray-700"
+                      >
+                        Description
+                      </label>
+                      <div class="mt-1 rounded-md shadow-sm">
                         <input
-                          class="vs__search"
-                          :required="!form.category_id"
-                          v-bind="attributes"
-                          v-on="events"
+                          v-model="form.description"
+                          id="description"
+                          type="text"
+                          placeholder="Movie Streaming"
+                          required
+                          class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
                         />
-                      </template>
-                    </v-select>
-                    <has-error :form="form" field="category_id" />
-                  </div>
-                </div>
-                <div class="mt-6">
-                  <label
-                    for="account_id"
-                    class="block text-sm font-medium leading-5 text-gray-700"
-                  >
-                    Account
-                  </label>
-                  <div class="mt-1 rounded-md shadow-sm">
-                    <v-select
-                      label="account_name"
-                      :options="accounts"
-                      v-model="form.account_id"
-                      :reduce="(account) => account.id"
-                    >
-                      <template #search="{ attributes, events }">
+                        <has-error :form="form" field="description" />
+                      </div>
+                    </div>
+
+                    <div class="mt-6">
+                      <label
+                        for="amount"
+                        class="block text-sm font-medium leading-5 text-gray-700"
+                      >
+                        Amount
+                      </label>
+                      <div class="mt-1 rounded-md shadow-sm">
                         <input
-                          class="vs__search"
-                          :required="!form.account_id"
-                          v-bind="attributes"
-                          v-on="events"
-                        /> </template
-                    ></v-select>
-                    <has-error :form="form" field="bankName" />
+                          v-model="form.amount"
+                          id="amount"
+                          type="decimal"
+                          placeholder="$0.00"
+                          required
+                          class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                        />
+                        <has-error :form="form" field="amount" />
+                      </div>
+                    </div>
                   </div>
                 </div>
 
-                <div class="mt-6">
-                  <label
-                    for="description"
-                    class="block text-sm font-medium leading-5 text-gray-700"
-                  >
-                    Description
-                  </label>
-                  <div class="mt-1 rounded-md shadow-sm">
-                    <input
-                      v-model="form.description"
-                      id="description"
-                      type="text"
-                      placeholder="Movie Streaming"
-                      required
-                      class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
-                    />
-                    <has-error :form="form" field="description" />
-                  </div>
-                </div>
-
-                <div class="mt-6">
-                  <label
-                    for="amount"
-                    class="block text-sm font-medium leading-5 text-gray-700"
-                  >
-                    Amount
-                  </label>
-                  <div class="mt-1 rounded-md shadow-sm">
-                    <input
-                      v-model="form.amount"
-                      id="amount"
-                      type="decimal"
-                      placeholder="$0.00"
-                      required
-                      class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
-                    />
-                    <has-error :form="form" field="amount" />
-                  </div>
+                <div
+                  class="absolute bottom-0 right-0 mr-6 mb-6 flex-shrink-0 px-4 py-4 space-x-4 flex justify-end"
+                >
+                  <span class="inline-flex rounded-md shadow-sm">
+                    <button
+                      v-on:click="closeModal"
+                      type="button"
+                      class="py-2 px-4 border border-gray-300 rounded-md text-sm leading-5 font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800 transition duration-150 ease-in-out"
+                    >
+                      Cancel
+                    </button>
+                  </span>
+                  <span class="inline-flex rounded-md shadow-sm">
+                    <button
+                      type="submit"
+                      class="inline-flex justify-center py-2 px-4 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition duration-150 ease-in-out"
+                    >
+                      Save
+                    </button>
+                  </span>
                 </div>
               </div>
-            </div>
-
-            <div
-              class="flex-shrink-0 px-4 py-4 space-x-4 flex justify-end bg-white"
-            >
-              <span class="inline-flex rounded-md shadow-sm">
-                <button
-                  v-on:click="closeModal"
-                  type="button"
-                  class="py-2 px-4 border border-gray-300 rounded-md text-sm leading-5 font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800 transition duration-150 ease-in-out"
-                >
-                  Cancel
-                </button>
-              </span>
-              <span class="inline-flex rounded-md shadow-sm">
-                <button
-                  type="submit"
-                  class="inline-flex justify-center py-2 px-4 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition duration-150 ease-in-out"
-                >
-                  Save
-                </button>
-              </span>
             </div>
           </form>
         </div>
@@ -239,9 +243,6 @@ export default {
     DatePicker,
   },
   data: () => ({
-    toggleIncomeActive: false,
-    toggleBudgetActive: false,
-    toggleTotalActive: false,
     cadence: [
       "Monthly",
       "Weekly",
