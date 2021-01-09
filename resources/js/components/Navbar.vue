@@ -25,9 +25,9 @@
               </svg>
             </span>
             <span class="ml-3">Overview</span>
-            <span
+            <!-- <span
               class="flex items-center justify-center text-sm text-gray-500 font-semibold bg-gray-200 h-6 px-2 rounded-full ml-auto"
-              >3</span
+              >3</span -->
             >
           </a>
         </li>

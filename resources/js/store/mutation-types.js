@@ -27,6 +27,7 @@ export const FETCH_BUDGETS = 'FETCH_BUDGETS'
 // Recurrings
 export const FETCH_RECURRINGS = 'FETCH_RECURRINGS'
 export const CREATE_RECURRING = 'CREATE_RECURRING'
+export const UPDATE_RECURRING = 'UPDATE_RECURRING'
 
 // lang.js
 export const SET_LOCALE = 'SET_LOCALE'
