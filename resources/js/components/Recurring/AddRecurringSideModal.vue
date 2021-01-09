@@ -263,7 +263,7 @@ export default {
 
   methods: {
     ...mapActions({
-      createRecurring: "recurring/createRecurring",
+      createRecurring: "recurrings/createRecurring",
     }),
     closeModal: function () {
       console.log("clicked close");

@@ -25,6 +25,7 @@ export const UPDATE_TAG = 'UPDATE_TAG'
 export const FETCH_BUDGETS = 'FETCH_BUDGETS'
 
 // Recurrings
+export const FETCH_RECURRINGS = 'FETCH_RECURRINGS'
 export const CREATE_RECURRING = 'CREATE_RECURRING'
 
 // lang.js
