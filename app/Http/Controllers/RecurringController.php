@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 class RecurringController extends Controller
 {
+
     public function store() {
         //dd(request());
         $data = request()->validate([
