@@ -9,6 +9,9 @@ import '~/components'
 import { MonthPicker } from 'vue-month-picker'
 import { MonthPickerInput } from 'vue-month-picker'
 import vClickOutside from 'v-click-outside'
+import moment from 'moment'
+
+Vue.prototype.moment = moment
 
 Vue.use(vClickOutside)
 Vue.use(MonthPicker)

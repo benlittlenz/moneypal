@@ -63,3 +63,4 @@ Route::post('recurrings', [RecurringController::class, 'store']);
 Route::patch('tags/{tag}', [TagController::class, 'update']);
 Route::patch('categories/{category}', [CategoryController::class, 'update']);
 Route::patch('budgets/{budget}', [BudgetController::class, 'update']);
+Route::patch('recurrings/{recurring}', [RecurringController::class, 'update']);
