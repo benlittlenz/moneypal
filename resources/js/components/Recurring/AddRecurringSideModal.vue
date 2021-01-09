@@ -64,20 +64,20 @@
                 </div>
 
                 <div class="mt-6">
-                    <label
-                      for="billing_date"
-                      class="block text-sm font-medium leading-5 text-gray-700"
-                    >
-                      Billing Date
-                    </label>
-                    <div class="mt-1">
-                      <date-picker
-                        v-model="form.billing_date"
-                        type="date"
-                        format="DD/MM/YYYY"
-                      ></date-picker>
-                    </div>
+                  <label
+                    for="billing_date"
+                    class="block text-sm font-medium leading-5 text-gray-700"
+                  >
+                    Billing Date
+                  </label>
+                  <div class="mt-1">
+                    <date-picker
+                      v-model="form.billing_date"
+                      type="date"
+                      format="DD/MM/YYYY"
+                    ></date-picker>
                   </div>
+                </div>
                 <div class="mt-6">
                   <label
                     for="repeating_cadence"
@@ -263,7 +263,7 @@ export default {
 
   methods: {
     ...mapActions({
-      createCategory: "categories/createCategory",
+      createRecurring: "recurring/createRecurring",
     }),
     closeModal: function () {
       console.log("clicked close");
@@ -277,27 +277,29 @@ export default {
     async create() {
       console.log(this.form);
       try {
-        const response = await this.createCategory({
+        const response = await this.createRecurring({
           data: {
-            display_name: this.form.display_name,
+            merchant: this.form.merchant,
+            repeating_cadence: this.form.repeating_cadence,
+            billing_date: this.form.billing_date
+              ? new Date(this.form.billing_date).toISOString().substring(0, 10)
+              : new Date().toISOString().substring(0, 10),
+            category_id: this.form.category_id,
             description: this.form.description,
-            income: this.form.income === null ? 0 : this.form.income,
-            exclude_budget:
-              this.form.exclude_budget === null ? 0 : this.form.exclude_budget,
-            exclude_totals:
-              this.form.exclude_totals === null ? 0 : this.form.exclude_totals,
+            account_id: this.form.account_id,
+            amount: this.form.amount,
           },
         });
 
-        console.log("RES: ", response);
-        this.$emit("close-modal");
-        if (response.data) {
-          console.log("successfully created category!");
-          Bus.$emit("flash-message", {
-            type: "success",
-            text: "Category successfully created!",
-          });
-        }
+        // console.log("RES: ", response);
+        // this.$emit("close-modal");
+        // if (response.data) {
+        //   console.log("successfully created category!");
+        //   Bus.$emit("flash-message", {
+        //     type: "success",
+        //     text: "Category successfully created!",
+        //   });
+        // }
       } catch (err) {
         console.log("ERROR: ", err);
       }

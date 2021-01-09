@@ -15,6 +15,7 @@ use App\Http\Controllers\Settings\PasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\BudgetController;
+use App\Http\Controllers\RecurringController;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,6 +59,7 @@ Route::get('budgets/{month}/{year}', [BudgetController::class, 'show']);
 Route::post('transactions', [TransactionController::class, 'store']);
 Route::post('categories', [CategoryController::class, 'store']);
 Route::post('tags', [TagController::class, 'store']);
+Route::post('recurrings', [RecurringController::class, 'store']);
 Route::patch('tags/{tag}', [TagController::class, 'update']);
 Route::patch('categories/{category}', [CategoryController::class, 'update']);
 Route::patch('budgets/{budget}', [BudgetController::class, 'update']);
