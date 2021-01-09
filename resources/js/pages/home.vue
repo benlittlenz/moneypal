@@ -13,9 +13,11 @@
             </div>
 
             <div class="flex flex-grow justify-end items-center mr-2">
-              <div class="hover:bg-gray-200 rounded-lg cursor-pointer py-2 px-4">
+              <div
+                class="hover:bg-gray-200 rounded-lg cursor-pointer py-2 px-4"
+              >
                 <button
-                v-on:click="addAcountModal = true"
+                  v-on:click="addAcountModal = true"
                   class="flex mr-2 focus:outline-none"
                 >
                   <svg
@@ -34,41 +36,30 @@
                   </svg>
                   <span class="ml-2">Add Account</span>
                 </button>
-
               </div>
             </div>
           </div>
 
-          <div
-            class="flex items-center py-2 px-2 text-grey-darker border-b -mx-4"
-          >
-            <div class="w-2/5 xl:w-1/4 px-4 flex items-center">
-              <div class="rounded-full bg-grey inline-flex mr-3">
-              </div>
-              <span class="text-lg">Spending</span>
-            </div>
+          <div v-if="loading">Loading...</div>
+          <div v-else>
+            <template>
+              <div v-for="account in accounts.data" :key="account.id">
+                <div
+                  class="flex items-center py-2 px-2 text-grey-darker border-b -mx-4"
+                >
+                  <div class="w-2/5 xl:w-1/4 px-4 flex items-center">
+                    <div class="rounded-full bg-grey inline-flex mr-3"></div>
+                    <span class="text-lg">{{account.account_name}}</span>
+                  </div>
 
-            <div class="flex flex-grow justify-end">
-              <div class="w-1/2 px-4">
-                <div class="text-right text-grey mr-6">$2000.00</div>
+                  <div class="flex flex-grow justify-end">
+                    <div class="w-1/2 px-4">
+                      <div class="text-right text-grey mr-6">${{account.balance}}</div>
+                    </div>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-
-          <div
-            class="flex items-center py-2 px-2 text-grey-darker border-b -mx-4"
-          >
-            <div class="w-2/5 xl:w-1/4 px-4 flex items-center">
-              <div class="rounded-full bg-grey inline-flex mr-3">
-              </div>
-              <span class="text-lg">Savings</span>
-            </div>
-
-            <div class="flex flex-grow justify-end">
-              <div class="w-1/2 px-4">
-                <div class="text-right text-grey mr-6">$12,000.00</div>
-              </div>
-            </div>
+            </template>
           </div>
 
           <div class="flex justify-end px-4 py-4 bg-gray-100">
@@ -125,13 +116,12 @@
         <AddAccountSideModal v-on:close-dialog="closeDialog" />
     </div> -->
     </div>
-
   </card>
-
 </template>
 
 <script>
-import AddAccountSideModal from "../components/AddAccountSideModal"
+import { mapGetters } from "vuex";
+import AddAccountSideModal from "../components/AddAccountSideModal";
 
 export default {
   components: {
@@ -140,6 +130,16 @@ export default {
 
   data: () => ({
     addAcountModal: false,
+    loading: true,
+  }),
+
+  mounted() {
+    console.log("loaded");
+    this.fetchAccounts();
+  },
+
+  computed: mapGetters({
+    accounts: "accounts/accounts",
   }),
 
   middleware: "auth",
@@ -149,13 +149,19 @@ export default {
   },
 
   methods: {
-    closeDialog: function() {
+    closeDialog: function () {
       this.addAcountModal = false;
     },
 
-    doStuff: function() {
-      console.log("HEY")
-    }
+    async fetchAccounts() {
+      //Fetch Accounts
+      await this.$store.dispatch("accounts/fetchAccounts");
+      this.loading = false;
+    },
+
+    doStuff: function () {
+      console.log("HEY");
+    },
   },
 };
 </script>

@@ -4,7 +4,7 @@ function page (path) {
 
 export default [
   { path: '/', name: 'welcome', component: page('welcome.vue') },
-  { path: '/hey', name: 'hey', component: page('table.vue') },
+  { path: '/transactions', name: 'transactions', component: page('table.vue') },
   { path: '/accounts', name: 'accounts', component: page('accounts.vue') },
   { path: '/categories', name: 'categories', component: page('categories.vue') },
   { path: '/tags', name: 'tags', component: page('tags.vue') },
