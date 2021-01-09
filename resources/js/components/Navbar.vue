@@ -3,10 +3,10 @@
     <div class="flex w-full max-w-s p-4 bg-white">
       <ul class="flex flex-col w-full">
         <li class="my-px">
-          <a
-            href="#"
-            class="flex flex-row items-center h-12 px-4 rounded-lg text-gray-600 bg-gray-100"
-          >
+          <router-link
+            :to="{ name: 'home' }"
+            class="flex flex-row items-center h-12 px-4 rounded-lg text-gray-600 hover:bg-gray-100"
+            active-class="bg-gray-100">
             <span
               class="flex items-center justify-center text-lg text-gray-400"
             >
@@ -25,11 +25,7 @@
               </svg>
             </span>
             <span class="ml-3">Overview</span>
-            <!-- <span
-              class="flex items-center justify-center text-sm text-gray-500 font-semibold bg-gray-200 h-6 px-2 rounded-full ml-auto"
-              >3</span -->
-            >
-          </a>
+          </router-link>
         </li>
         <li class="my-px">
           <span
@@ -38,10 +34,10 @@
           >
         </li>
         <li class="my-px">
-          <a
-            href="#"
+          <router-link
+            :to="{ name: 'budgets' }"
             class="flex flex-row items-center h-12 px-4 rounded-lg text-gray-600 hover:bg-gray-100"
-          >
+            active-class="bg-gray-100">
             <span
               class="flex items-center justify-center text-lg text-gray-400"
             >
@@ -61,13 +57,13 @@
               </svg>
             </span>
             <span class="ml-3">Budgets</span>
-          </a>
+          </router-link>
         </li>
         <li class="my-px">
-          <a
-            href="#"
+          <router-link
+            :to="{ name: 'transactions' }"
             class="flex flex-row items-center h-12 px-4 rounded-lg text-gray-600 hover:bg-gray-100"
-          >
+            active-class="bg-gray-100">
             <span
               class="flex items-center justify-center text-lg text-gray-400"
             >
@@ -86,13 +82,13 @@
               </svg>
             </span>
             <span class="ml-3">Transactions</span>
-          </a>
+          </router-link>
         </li>
         <li class="my-px">
-          <a
-            href="#"
+          <router-link
+            :to="{ name: 'recurring' }"
             class="flex flex-row items-center h-12 px-4 rounded-lg text-gray-600 hover:bg-gray-100"
-          >
+            active-class="bg-gray-100">
             <span
               class="flex items-center justify-center text-lg text-gray-400"
             >
@@ -112,7 +108,7 @@
               </svg>
             </span>
             <span class="ml-3">Recurring</span>
-          </a>
+          </router-link>
         </li>
 
         <li class="my-px">
@@ -122,10 +118,10 @@
           >
         </li>
         <li class="my-px">
-          <a
-            href="#"
+           <router-link
+            :to="{ name: 'accounts' }"
             class="flex flex-row items-center h-12 px-4 rounded-lg text-gray-600 hover:bg-gray-100"
-          >
+            active-class="bg-gray-100">
             <span
               class="flex items-center justify-center text-lg text-gray-400"
             >
@@ -145,16 +141,16 @@
               </svg>
             </span>
             <span class="ml-3">Accounts</span>
-          </a>
+          </router-link>
         </li>
         <li class="my-px">
-          <a
-            href="#"
+          <router-link
+            :to="{ name: 'categories' }"
             class="flex flex-row items-center h-12 px-4 rounded-lg text-gray-600 hover:bg-gray-100"
-          >
-            <span
-              class="flex items-center justify-center text-lg text-gray-400"
-            >
+            active-class="bg-gray-100">
+              <span
+                class="flex items-center justify-center text-lg text-gray-400"
+              >
               <svg
                 class="w-6 h-6"
                 fill="none"
@@ -171,13 +167,13 @@
               </svg>
             </span>
             <span class="ml-3">Categories</span>
-          </a>
+          </router-link>
         </li>
         <li class="my-px">
-          <a
-            href="#"
+          <router-link
+            :to="{ name: 'tags' }"
             class="flex flex-row items-center h-12 px-4 rounded-lg text-gray-600 hover:bg-gray-100"
-          >
+            active-class="bg-gray-100">
             <span
               class="flex items-center justify-center text-lg text-gray-400"
             >
@@ -197,7 +193,7 @@
               </svg>
             </span>
             <span class="ml-3">Tags</span>
-          </a>
+          </router-link>
         </li>
 
         <li class="my-px">
@@ -208,7 +204,7 @@
         </li>
         <li class="my-px">
           <a
-            href="#"
+            href=""
             class="flex flex-row items-center h-12 px-4 rounded-lg text-gray-600 hover:bg-gray-100"
           >
             <span
@@ -309,7 +305,7 @@ export default {
 
       // Redirect to login.
       this.$router.push({ name: 'login' })
-    }
+    },
   }
 }
 </script>
