@@ -98,7 +98,7 @@
                 Account
               </th>
               <th
-                class="w-40 text-center bg-gray-100 sticky top-0 border-solid border border-gray-200 px-6 py-3 text-gray-600 font-bold tracking-wider uppercase text-xs"
+                class="text-center bg-gray-100 sticky top-0 border-solid border border-gray-200 px-6 py-3 text-gray-600 font-bold tracking-wider uppercase text-xs"
               >
                 Description
               </th>
@@ -161,7 +161,7 @@
                   }}</span>
                 </td>
                 <td class="border-solid border border-gray-200">
-                  <span class="text-gray-700 px-6 py-1 flex items-center">{{
+                  <span class="text-gray-700 px-6 py-1 flex items-center">$ {{
                     recurring.amount
                   }}</span>
                 </td>

@@ -284,7 +284,7 @@ export default {
 
   methods: {
     ...mapActions({
-      createRecurring: "recurrings/createRecurring",
+      updateRecurring: "recurrings/updateRecurring",
     }),
     closeModal: function () {
       console.log("clicked close");
@@ -297,30 +297,31 @@ export default {
 
     async update() {
       console.log(this.form);
-      console.log("HEY: ", this.category.id);
       try {
-        const response = await this.updateCategory({
+        const response = await this.updateRecurring({
           data: {
-            display_name: this.form.display_name,
+            merchant: this.form.merchant,
+            repeating_cadence: this.form.repeating_cadence,
+            billing_date: this.form.billing_date
+              ? new Date(this.form.billing_date).toISOString().substring(0, 10)
+              : new Date().toISOString().substring(0, 10),
+            category_id: this.form.category_id,
             description: this.form.description,
-            income: this.form.income === null ? 0 : this.form.income,
-            exclude_budget:
-              this.form.exclude_budget === null ? 0 : this.form.exclude_budget,
-            exclude_totals:
-              this.form.exclude_totals === null ? 0 : this.form.exclude_totals,
+            account_id: this.form.account_id,
+            amount: this.form.amount,
           },
-          id: this.category.id,
+          id: this.recurring.id,
         });
 
         console.log("RES: ", response);
         this.$emit("close-modal");
-        // if (response.data) {
-        //   console.log("successfully created category!");
-        //   Bus.$emit("flash-message", {
-        //     type: "success",
-        //     text: "Category successfully created!",
-        //   });
-        // }
+        if (response.data) {
+          console.log("successfully updated recurring item!");
+          Bus.$emit("flash-message", {
+            type: "success",
+            text: "Recurring item successfully updated!",
+          });
+        }
       } catch (err) {
         console.log("ERROR: ", err);
       }
