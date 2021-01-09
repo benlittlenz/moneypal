@@ -53,8 +53,8 @@ Route::get('transactions', [TransactionController::class, 'index']);
 Route::get('categories', [CategoryController::class, 'index']);
 Route::get('accounts', [AccountController::class, 'index']);
 Route::get('tags', [TagController::class, 'index']);
+Route::get('recurrings', [RecurringController::class, 'index']);
 Route::get('budgets/{month}/{year}', [BudgetController::class, 'show']);
-
 
 Route::post('transactions', [TransactionController::class, 'store']);
 Route::post('categories', [CategoryController::class, 'store']);

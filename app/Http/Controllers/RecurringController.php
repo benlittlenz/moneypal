@@ -2,13 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\RecurringResource;
 use App\Models\Recurring;
 use Illuminate\Http\Request;
 
 class RecurringController extends Controller
 {
+    public function index()
+    {
+        $recurrings = Recurring::with(['accounts', 'categories']);
+        return RecurringResource::collection($recurrings->paginate(25))->response();
+    }
 
-    public function store() {
+    public function store()
+    {
         //dd(request());
         $data = request()->validate([
             'merchant' => '',
