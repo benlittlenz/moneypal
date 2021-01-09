@@ -20,7 +20,7 @@
             d="M12 6v6m0 0v6m0-6h6m-6 0H6"
           ></path>
         </svg>
-        <span class="ml-2">Add Account</span>
+        <span class="ml-2">Add Recurring Item</span>
       </button>
     </div>
 
@@ -75,9 +75,9 @@
     </div>
 
     <div class="bg-white rounded-sm shadow overflow-y-auto relative mt-2">
-      <div v-if="categories.length === 0">Loading...</div>
+      <div v-if="recurrings.length === 0">Loading...</div>
       <div v-else>
-        <!-- <table
+        <table
           class="border-collapse table-auto w-full whitespace-no-wrap bg-white table-striped relative"
         >
           <thead>
@@ -85,27 +85,37 @@
               <th
                 class="bg-gray-100 sticky top-0 border-solid border border-gray-200 px-6 py-3 text-gray-600 font-bold tracking-wider uppercase text-xs"
               >
-                Display Name
+                Payee
               </th>
               <th
                 class="bg-gray-100 sticky top-0 border-solid border border-gray-200 px-6 py-3 text-gray-600 font-bold tracking-wider uppercase text-xs"
+              >
+                Category
+              </th>
+              <th
+                class="bg-gray-100 sticky top-0 border-solid border border-gray-200 px-6 py-3 text-gray-600 font-bold tracking-wider uppercase text-xs"
+              >
+                Account
+              </th>
+              <th
+                class="w-40 text-center bg-gray-100 sticky top-0 border-solid border border-gray-200 px-6 py-3 text-gray-600 font-bold tracking-wider uppercase text-xs"
               >
                 Description
               </th>
               <th
                 class="w-40 text-center bg-gray-100 sticky top-0 border-solid border border-gray-200 px-6 py-3 text-gray-600 font-bold tracking-wider uppercase text-xs"
               >
-                Income
+                Repeating Cycle
               </th>
               <th
                 class="w-40 text-center bg-gray-100 sticky top-0 border-solid border border-gray-200 px-6 py-3 text-gray-600 font-bold tracking-wider uppercase text-xs"
               >
-                Exclude From Budget
+                Billing Date
               </th>
               <th
                 class="w-40 text-center bg-gray-100 sticky top-0 border-solid border border-gray-200 px-6 py-3 text-gray-600 font-bold tracking-wider uppercase text-xs"
               >
-                Exclude From Totals
+                Amount
               </th>
               <th
                 class="w-4 bg-gray-100 sticky top-0 border-solid border border-gray-200 px-6 py-3 text-gray-600 font-bold tracking-wider uppercase text-xs"
@@ -115,86 +125,46 @@
           <tbody>
             <template>
               <tr
-                v-for="category in categories.data"
-                :key="category.id"
+                v-for="recurring in recurrings.data"
+                :key="recurring.id"
                 class="max-h-2 hover:bg-gray-50 cursor-pointer"
-                v-on:click="updateCategory(category)"
+                v-on:click="updateCategory(recurring)"
               >
                 <td class="border-solid border border-gray-200">
                   <span class="text-gray-700 px-6 py-1 flex items-center">{{
-                    category.display_name
+                    recurring.merchant
                   }}</span>
                 </td>
                 <td class="border-solid border border-gray-200">
                   <span class="text-gray-700 px-6 py-1 flex items-center">{{
-                    category.description
+                    recurring.category.display_name
                   }}</span>
                 </td>
                 <td class="border-solid border border-gray-200">
-                  <div class="flex flex-col justify-center items-center">
-                    <span v-if="category.income !== 0">
-                    <svg
-                      class="w-6 h-6"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M5 13l4 4L19 7"
-                      ></path>
-                    </svg>
-                  </span>
-                  </div>
-
+                  <span class="text-gray-700 px-6 py-1 flex items-center">{{
+                    recurring.account.account_name
+                  }}</span>
                 </td>
                 <td class="border-solid border border-gray-200">
-                  <div class="flex flex-col justify-center items-center">
-                    <span v-if="category.exclude_budget !== 0">
-                    <svg
-                      class="w-6 h-6"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M5 13l4 4L19 7"
-                      ></path>
-                    </svg>
-                  </span>
-                  </div>
-
+                  <span class="text-gray-700 px-6 py-1 flex items-center">{{
+                    recurring.description
+                  }}</span>
                 </td>
-
                 <td class="border-solid border border-gray-200">
-                  <div class="flex flex-col justify-center items-center">
-                    <span v-if="category.exclude_totals !== 0">
-                    <svg
-                      class="w-6 h-6"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M5 13l4 4L19 7"
-                      ></path>
-                    </svg>
-                  </span>
-                  </div>
-
+                  <span class="text-gray-700 px-6 py-1 flex items-center">{{
+                    recurring.repeating_cadence
+                  }}</span>
                 </td>
-
+                <td class="border-solid border border-gray-200">
+                  <span class="text-gray-700 px-6 py-1 flex items-center">{{
+                    recurring.billing_date
+                  }}</span>
+                </td>
+                <td class="border-solid border border-gray-200">
+                  <span class="text-gray-700 px-6 py-1 flex items-center">{{
+                    recurring.amount
+                  }}</span>
+                </td>
                 <td class="border-solid border border-gray-200">
                   <div class="flex flex-col justify-center items-center">
                     <span class="">
@@ -218,7 +188,7 @@
               </tr>
             </template>
           </tbody>
-        </table> -->
+        </table>
       </div>
     </div>
 
@@ -227,13 +197,10 @@
         v-on:close-modal="closeModal"
         :categories="categories.data"
         :accounts="accounts.data"
-        />
+      />
     </div>
     <div v-if="editRecurring === true">
-      <EditRecurringSideModal
-        v-on:close-modal="closeModal"
-
-      />
+      <EditRecurringSideModal v-on:close-modal="closeModal" />
     </div>
   </div>
 </template>
