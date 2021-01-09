@@ -9,6 +9,7 @@ export default [
   { path: '/categories', name: 'categories', component: page('categories.vue') },
   { path: '/tags', name: 'tags', component: page('tags.vue') },
   { path: '/budgets', name: 'budgets', component: page('budgets.vue') },
+  { path: '/recurring', name: 'recurring', component: page('recurring.vue') },
 
   { path: '/login', name: 'login', component: page('auth/login.vue') },
   { path: '/register', name: 'register', component: page('auth/register.vue') },

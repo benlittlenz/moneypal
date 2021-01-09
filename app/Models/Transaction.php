@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Account;
 use App\Models\Category;
+use App\Models\Recurring;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -20,5 +21,10 @@ class Transaction extends Model
     public function categories()
     {
         return $this->belongsTo(Category::class, 'category_id');
+    }
+
+    public function recurrings()
+    {
+        return $this->hasMany(Recurring::class);
     }
 }
