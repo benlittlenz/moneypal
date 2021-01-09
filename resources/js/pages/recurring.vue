@@ -128,7 +128,7 @@
                 v-for="recurring in recurrings.data"
                 :key="recurring.id"
                 class="max-h-2 hover:bg-gray-50 cursor-pointer"
-                v-on:click="updateCategory(recurring)"
+                v-on:click="updateRecurring(recurring)"
               >
                 <td class="border-solid border border-gray-200">
                   <span class="text-gray-700 px-6 py-1 flex items-center">{{
@@ -157,7 +157,7 @@
                 </td>
                 <td class="border-solid border border-gray-200">
                   <span class="text-gray-700 px-6 py-1 flex items-center">{{
-                    recurring.billing_date
+                    moment(recurring.billing_date).format("DD/MM/YYYY")
                   }}</span>
                 </td>
                 <td class="border-solid border border-gray-200">
@@ -200,7 +200,12 @@
       />
     </div>
     <div v-if="editRecurring === true">
-      <EditRecurringSideModal v-on:close-modal="closeModal" />
+      <EditRecurringSideModal
+        v-on:close-modal="closeModal"
+          :recurring="recurring"
+          :accounts="accounts.data"
+          :categories="categories.data"
+        />
     </div>
   </div>
 </template>
@@ -221,7 +226,7 @@ export default {
     loading: true,
     createRecurring: false,
     editRecurring: false,
-    category: null,
+    recurring: null,
   }),
   components: {
     vSelect,
@@ -257,14 +262,10 @@ export default {
       this.loading = false;
     },
 
-    updateCategory(record) {
+    updateRecurring(record) {
       console.log(record);
       this.editRecurring = true;
-      this.category = record;
-      //this.editing.account = record;
-      //   this.editing.form.date = new Date(record.date);
-      //   this.editing.form.account_id = record.account.id
-      //   this.editing.form.category_id = record.category.id
+      this.recurring = record;
     },
   },
 };

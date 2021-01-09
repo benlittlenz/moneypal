@@ -33,4 +33,18 @@ class RecurringController extends Controller
 
         return $recurringItem;
     }
+
+    public function update(Recurring $recurring)
+    {
+        ///dd(request());
+        return $recurring->update([
+            'merchant' => request('merchant'),
+            'repeating_cadence' => request('repeating_cadence'),
+            'billing_date' => request('billing_date'),
+            'category_id' => request('category_id'),
+            'description' => request('description'),
+            'account_id' => request('account_id'),
+            'amount' => request('amount'),
+        ]);
+    }
 }

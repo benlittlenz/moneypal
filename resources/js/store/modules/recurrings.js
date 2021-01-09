@@ -41,4 +41,11 @@ export const actions = {
 
         return await axios.post('/api/recurrings', data)
     },
+    async updateCategory({ commit }, payload) {
+        const categoryID = payload.id
+        console.log("ID: ", categoryID)
+        console.log(payload)
+        commit(types.UPDATE_CATEGORY, payload)
+        return await axios.patch(`/api/categories/${categoryID}`, payload.data)
+    },
 }

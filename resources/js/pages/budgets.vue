@@ -91,7 +91,7 @@ import "vue-select/dist/vue-select.css";
 import DatePicker from "vue2-datepicker";
 import "vue2-datepicker/index.css";
 
-import Loading from '../components/Loading'
+import Loading from "../components/Loading";
 
 export default {
   data: () => ({
@@ -99,8 +99,8 @@ export default {
     createCategory: false,
     editCategory: false,
     editing: {
-        budget_id: null,
-        budget_amount: null,
+      budget_id: null,
+      budget_amount: null,
     },
     month: null,
     year: null,
@@ -110,13 +110,13 @@ export default {
   components: {
     vSelect,
     MonthPicker,
-    Loading
+    Loading,
   },
 
   mounted() {
     console.log("loaded");
     this.fetchBudgets();
-    this.$loading = this.$refs.loading
+    this.$loading = this.$refs.loading;
   },
 
   computed: mapGetters({
@@ -149,30 +149,29 @@ export default {
 
     async dateChange(date) {
       console.log(date);
-      this.year = date.year
-      this.month = ('0' + date.monthIndex).slice(-2)
+      this.year = date.year;
+      this.month = ("0" + date.monthIndex).slice(-2);
       this.month_display = date.month;
 
-        await this.$store.dispatch("budgets/fetchBudgets", {
-        month: ('0' + date.monthIndex).slice(-2),
+      await this.$store.dispatch("budgets/fetchBudgets", {
+        month: ("0" + date.monthIndex).slice(-2),
         year: date.year,
       });
     },
     async onBudgetAmountChange({ target }) {
-        console.log('target: ', target)
-        const budgetID = target.id
-        const budgetAmount = target.value
-        console.log('budget_id', budgetID)
-        console.log('budget_amount', budgetAmount)
+      console.log("target: ", target);
+      const budgetID = target.id;
+      const budgetAmount = target.value;
+      console.log("budget_id", budgetID);
+      console.log("budget_amount", budgetAmount);
 
-        const response = await this.updateBudget({
-            data: {
-                budget_id: budgetID,
-                budget_amount: budgetAmount,
-            }
-        })
+      const response = await this.updateBudget({
+        data: {
+          budget_id: budgetID,
+          budget_amount: budgetAmount,
+        },
+      });
     },
-
   },
 };
 </script>
