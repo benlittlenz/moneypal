@@ -20,13 +20,6 @@ export const mutations = {
         state.recurrings.data.push({ data })
     },
     [types.UPDATE_RECURRING] (state, data ) {
-        console.log('state', state)
-        console.log('data', data)
-        // state.categories.data = data
-
-        // console.log("cat id: ", state.category.data.id)
-        // console.log("data id: ", data.id)
-
         state.recurrings.data = state.recurrings.data.map(recurring => {
             if (recurring.id === data.id) {
               return Object.assign({}, recurring, data)
@@ -57,8 +50,6 @@ export const actions = {
     },
     async updateRecurring({ commit }, payload) {
         const recurringID = payload.id
-        console.log("ID: ", recurringID)
-        console.log(payload)
         commit(types.UPDATE_RECURRING, payload)
         return await axios.patch(`/api/recurrings/${recurringID}`, payload.data)
     },
